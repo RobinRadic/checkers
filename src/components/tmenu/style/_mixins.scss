@@ -1,0 +1,82 @@
+
+@mixin menu-item-nested(
+    $margin: $menu-nested-margin,
+    $nested-alignment: left
+) {
+    @if $nested-alignment == right {
+        padding-#{$global-right}: $margin;
+        padding-#{$global-left}:  0;
+    } @else {
+        padding-#{$global-right}: 0;
+        padding-#{$global-left}:  $margin;
+    }
+
+}
+
+/// Sets the direction of a Menu.
+/// @param {Keyword} $dir [horizontal] - Direction of the Menu. Can be `horizontal` or `vertical`.
+@mixin menu-direction($dir: horizontal) {
+    @if $dir == horizontal {
+        flex-wrap      : wrap;
+        flex-direction : row;
+    } @else if $dir == vertical {
+        flex-wrap      : nowrap;
+        flex-direction : column;
+    } @else {
+        @warn 'The direction used for menu-direction() must be horizontal or vertical.';
+    }
+}
+
+/// Adds basic styles for icons in menus.
+@mixin menu-icons() {
+    .menu-link {
+        display : flex;
+    }
+}
+
+/// Adds position classes for icons within a menu.
+@mixin menu-icon-position($position: left, $spacing: $menu-icon-spacing) {
+    @if $position == left {
+        .menu-item .menu-link {
+            flex-flow : row nowrap;
+            img,            i,            svg {
+                margin-#{$global-right}: $spacing;
+            }
+        }
+    } @else if $position == right {
+        .menu-item .menu-link {
+            flex-flow : row nowrap;
+
+            img, i, svg {
+                margin-#{$global-left}: $spacing;
+            }
+        }
+    } @else if $position == top {
+        .menu-item .menu-link {
+            flex-flow : column nowrap;
+
+            img, i, svg {
+                align-self    : stretch;
+                margin-bottom : $spacing;
+                text-align    : center;
+            }
+        }
+    } @else if $position == bottom {
+        .menu-item .menu-link {
+            flex-flow : column nowrap;
+
+            img, i, svg {
+                align-self    : stretch;
+                margin-bottom : $spacing;
+                text-align    : center;
+            }
+        }
+    }
+}
+
+
+@mixin menu-text {
+    padding: $global-menu-padding;
+
+    color: $menu-item-fg-color;
+}

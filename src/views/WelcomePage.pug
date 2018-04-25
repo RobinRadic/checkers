@@ -1,0 +1,158 @@
+include ../../core/views/base
+
+mixin feature-column(title, imgSrc)
+    .feature-column.col-lg-4.wow.fadeIn.slideInUp&attributes(attributes)
+        img.feature-image(src=img('welcome', 'features/' + imgSrc), alt='Laravel')
+        h3.feature-heading=title
+        p.lead
+            block
+
+
+div(v-scroll-spy="scrollPos")
+
+    // WELCOME
+    q-carousel#welcome-carousel.text-white(ref="carousel", autoplay, actions, handle-arrow-keys, arrows, infinite, :class="carousel.welcome.className", :style="carousel.welcome.style")
+        div.carousel-slide.slide-html.centered(slot="slide", :style="carousel.welcome.slide.style")
+            p Seamless integration of PHPDoc, Github/Bitbucket and more!
+
+        div.carousel-slide.slide-typewriter.centered(slot="slide", :style="carousel.welcome.slide.style")
+            p Completely customizable and dead simple to use to create beautiful documentation.
+
+
+    // OPEN SOURCE
+    c-section#intro(scheme='dark', data-wow-duration='2s').scrollspy.wow.fadeIn
+        q-window-resize-observable(@resize="onResize")
+        .awesome
+            h2  Open Source
+            p
+                | Codex is available on
+                a(href='#')  GitHub
+                |  under the
+                a(href='#')  MIT license
+            .awesome-divider
+
+    // FEATURES
+    c-section#features(scheme='light', header='Features').scrollspy
+        .row.md-gutter
+            +feature-column('Plugins', 'plugins.png')(data-wow-duration='1.5s', data-wow-delay='0s')
+                | Using a plugin based approach, Codex can easily be extended. Check out
+                a(href='#')  existing plugins
+                |  or
+                a(href='#')  create something custom
+                | .
+            +feature-column('Laravel', 'laravel.svg')(data-wow-duration='1.5s', data-wow-delay='0.15s')
+                | Codex is a file-based documentation platform built on top of Laravel 5.5. Use it as stand-alone or integrate it into your own application!
+            +feature-column('Responsive', 'responsive.png')(data-wow-duration='1.5s', data-wow-delay='0.3s')
+                | Documentation should be readable on all devices. Reading documents in Codex on a mobile phone or tablet device is actually enjoyable.
+        .row.md-gutter
+            +feature-column('Flexible', 'flexible.png')(data-wow-duration='1.5s', data-wow-delay='0.75s')
+                | Use Markdown, AsciiDoc, Creole or any other lightweight markup language. Use custom parsers to add support for other LML's.
+            +feature-column('Vue.js', 'vuejs.png')(data-wow-delay='0.60s', data-wow-duration='1.5s')
+                | The front-end uses the Vue.js framework to deliver a Single Page Application that guarantees a smooth experience
+            +feature-column('Fast', 'fast.png')(data-wow-delay='0.45s', data-wow-duration='1.5s')
+                | 53% of users will abandon a site if it takes longer than 3 seconds to load! And once loaded, users expect them to be fast—no janky scrolling or slow-to-respond interfaces.
+
+
+
+    // OVERVIEW
+    c-section#overview(scheme='dark', header='Overview').scrollspy
+        .feature-row.row.md-gutter
+            .col-lg-6.text-md-right
+                h3.feature-heading.wow.slideInLeft.fadeIn
+                    | Create Beautiful
+                    span.text-muted  Documentation
+                p.lead.wow.slideInUp.fadeIn
+                    | Documentation is incredibly important that can make or break even the best development projects.
+                    | Codex is completely customizable and dead simple to use to create beautiful documentation.
+                blockquote.wow.slideInLeft.fadeIn(data-wow-delay='0.45s')
+                    h4 Multi Project / Multi Version
+                    p
+                        | Codex offers you a multi-project documentation system. Each project can contain multiple versions making it
+                        | possible to host your documentation for older versions of your application as well.
+                blockquote.wow.slideInLeft.fadeIn(data-wow-delay='0.60s')
+                    h4 Flexible inherited configuration
+                    p
+                        | The flexible inherited configuration system allows you to, for example, define system-wide layout configuration,
+                        | override some of it for a project, append some for a revision and override it again for a specific document.
+                //blockquote.wow.slideInLeft.fadeIn(data-wow-delay='0.75s')
+                    h4 Another title
+                    p
+                        | Codex offers you a multi-project documentation system. Each project can contain multiple versions making it
+                        | possible to host your documentation for older versions of your application as well.
+
+            .col-lg-6.text-center(:class="{ 'order-first': bp.down.md }", :style="{ paddingTop: '100px' }")
+                //c-centered(auto-height, @click="$refs.overviewLightbox.open()")
+                c-lightbox(caption='Codex PHPDoc', ref="overviewLightbox", src=img('welcome', 'ss-codex.png'), data-wow-delay='0.30s', data-wow-duration='1.5s').zoom-in.wow.fadeIn
+                    img(src=img('welcome', 'ss-codex.png'), alt='Codex PHPDoc').feature-image.feature-image-lightbox.responsive.mx-auto
+
+
+        hr.section-divider.section-divider-light
+        .feature-row.row.md-gutter
+            .col-7.order-last
+                h3.feature-heading.wow.slideInRight.fadeIn
+                    | Addons
+                    small   {{ carousel.addons.slide.caption }}
+                .lead.wow.slideInUp.fadeIn(v-html="carousel.addons.slide.content")
+
+            .col-5.pull-md-7.text-center.feature-row
+                q-carousel#addons-carousel(ref="addonsCarousel", arrows, handle-arrow-keys, infinite, actions, @slide="onAddonsCarouselSlide")
+                    q-icon(slot="action", @click="onAddonsCarouselFullscreen", name="fullscreen")
+                    div.slide.centered(
+                    slot="slide",
+                    v-for="(slide, islide) in carousel.addons.slides",
+                    :key="islide",
+                    :class="carousel.addons.slideClasses.concat(slide.classes).concat(['slide-' + slide.name])",
+                    :style="{...carousel.addons.slideStyles, ...slide.styles }"
+                    )
+                        c-lightbox(ref="addonsCarouselSlideLightbox", :src="carousel.addons.imgPrefix + slide.img", class="hide")
+                        .carousel-text.text-left {{ slide.caption }}
+
+                q-modal#addons-carousel-modal
+                    q-carousel.text-white.full-height(arrows, dots, actions, handle-arrow-keys, infinite ) // autoplay,
+
+
+    // GETTING STARTED
+    c-section#getting-started(scheme='light', header='Getting Started').scrollspy.wow.fadeIn
+        .row.md-gutter
+            .col-9
+                h3 Composer
+                p Installation using composer
+
+                h4 Stable Release
+                p This is the preferred release if you're looking to use Codex for your documentation needs.
+                pre.language-bash: code.
+                    composer create-project codex/codex [directory] --stability=stable
+
+                h4 Dev Release
+                p
+                    | As this is an open source project, you are free to download the development branch as well.
+                    | Just note that while this is the bleeding edge in terms of features and functionality, it comes at the price that things may be broken.
+
+                pre.language-bash: code.
+                    composer create-project codex/codex [directory] --stability=dev
+
+                h4 Integrate Codex
+                p Codex is divided in multiple packages that can be integrated into any Laravel (5.5+) application!
+                pre.language-bash: code.
+                    composer require codex/core
+            .col-3
+                h3 Download
+                q-btn.bg-positive.text-white.full-width(big, flat) Latest Stable Release
+                q-btn.bg-warning.text-white.full-width(big, flat) Latest Dev Release
+                q-btn.bg-info.text-white.full-width(big, flat) Legacy (v1.x)
+
+
+    c-section#documentation(scheme='dark', header='Documentation').scrollspy.wow.fadeIn
+        .row.md-gutter
+            .col-4
+                //router-link(:to="'/docs'").btn.btn-success.btn-block Latest Stable Version
+                //router-link.btn.btn-success.btn-block(:to="{ name: 'documentation' }") Latest Stable Version
+                q-btn.full-width.bg-positive(big, flat, block, color="white", @click="$router.push({ name: 'documentation', params: { project:'codex', revision:'master' }  })") Latest Stable Release
+
+            .col-4
+                //router-link.btn.btn-warning.btn-block(:to="{ name: 'documentation' }") Latest Dev Version
+                q-btn.full-width.bg-warning(big, flat, block,  color="white", @click="$router.push({ name: 'documentation', params: { project:'codex', revision:'develop' } })") Latest Dev Release
+
+            .col-4
+                //router-link.btn.btn-primary.btn-block(:to="{ name: 'documentation' }") Legacy (v1.x)
+                q-btn.full-width.bg-info(big, flat, block, color="white", @click="$router.push({ name: 'documentation', params: { project:'codex', revision:'v1' } })") Legacy (v1.x)

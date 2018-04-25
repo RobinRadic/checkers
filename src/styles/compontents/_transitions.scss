@@ -1,0 +1,63 @@
+/**
+ * Copyright (c) 2018. Codex Project
+ *
+ * The license can be found in the package and online at https://codex-project.mit-license.org.
+ *
+ * @copyright 2018 Codex Project
+ * @author Robin Radic
+ * @license https://codex-project.mit-license.org MIT License
+ */
+
+// https://vuejs.org/v2/guide/transitions.html#CSS-Animations
+@import "~animate-scss/_bouncing-entrances/bounceIn";
+@import "~animate-scss/_bouncing-exits/bounceOut";
+
+.bounce-enter-active, .bounceIn { @include bounceIn() }
+
+.bounce-leave-active, .bounceOut { @include bounceOut() }
+
+@import "~animate-scss/_fading-entrances/fadeIn";
+@import "~animate-scss/_fading-exits/fadeOut";
+
+.fade-enter-active, .fadeIn { @include fadeIn() }
+
+.fade-leave-active, .fadeOut { @include fadeOut() }
+
+@import "~animate-scss/_sliding-entrances/slideInUp";
+@import "~animate-scss/_sliding-entrances/slideInDown";
+@import "~animate-scss/_sliding-entrances/slideInLeft";
+@import "~animate-scss/_sliding-entrances/slideInRight";
+
+.slide-up-enter-active, .slideInUp { @include slideInUp() }
+
+.slide-down-enter-active, .slideInDown { @include slideInDown() }
+
+.slide-left-enter-active, .slideInLeft { @include slideInLeft() }
+
+.slide-right-enter-active, .slideInRight { @include slideInRight() }
+
+@import "~animate-scss/_sliding-exits/slideOutUp";
+@import "~animate-scss/_sliding-exits/slideOutDown";
+@import "~animate-scss/_sliding-exits/slideOutLeft";
+@import "~animate-scss/_sliding-exits/slideOutRight";
+
+.slide-up-leave-active, .slideOutUp { @include slideOutUp() }
+
+.slide-down-leave-active, .slideOutDown { @include slideOutDown() }
+
+.slide-left-leave-active, .slideOutLeft { @include slideOutLeft() }
+
+.slide-right-leave-active, .slideOutRight { @include slideOutRight() }
+
+@import "transitions/maximize-entrances/maximizeInDown";
+@import "transitions/minimize-exists/minimizeOutUp";
+
+.maximize-down-enter-active, .maximizeInDown {
+    overflow-y: hidden;
+    @include maximizeInDown(1, 600ms)
+}
+
+.maximize-down-leave-active, .minimizeOutUp {
+    overflow-y: hidden;
+    @include minimizeOutUp(1, 600ms)
+}

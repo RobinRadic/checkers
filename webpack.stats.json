@@ -1,0 +1,8 @@
+Starting type checking service...
+Using [1m1 worker[22m with [1m2048MB[22m memory limit
+{
+  "errors": [],
+  "warnings": [],
+  "modules": [],
+  "filteredModules": 646
+}

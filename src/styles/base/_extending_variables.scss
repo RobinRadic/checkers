@@ -1,0 +1,134 @@
+/**
+ * Copyright (c) 2018. Codex Project
+ *
+ * The license can be found in the package and online at https://codex-project.mit-license.org.
+ *
+ * @copyright 2018 Codex Project
+ * @author Robin Radic
+ * @license https://codex-project.mit-license.org MIT License
+ */
+
+//@formatter:off
+// 22. Flow Text
+// ==========================================================================
+
+//$range: map_get($grid-breakpoints, xl) - map_get($grid-breakpoints, sm) !default;
+//$intervals: 20 !default;
+//$interval-size: $range / $intervals !default;
+
+ //Twilight scheme
+//$code-background:#373a3c;
+//$code-color: #ccc;
+//$code-color-comment: #999999;
+//$code-color-block-comment: #999999;
+//$code-color-prolog: #999999;
+//$code-color-doctype: #999999;
+//$code-color-cdata: #999999;
+//$code-color-punctuation: #cccccc;
+//$code-color-tag: #e2777a;
+//$code-color-attr-name: #e2777a;
+//$code-color-namespace: #e2777a;
+//$code-color-deleted: #e2777a;
+//$code-color-function-name: #6196cc;
+//$code-color-boolean: #f08d49;
+//$code-color-number: #f08d49;
+//$code-color-function: #f08d49;
+//$code-color-property: #f8c555;
+//$code-color-class-name: #f8c555;
+//$code-color-constant: #f8c555;
+//$code-color-symbol: #f8c555;
+//$code-color-selector: #cc99cd;
+//$code-color-important: #cc99cd;
+//$code-color-atrule: #cc99cd;
+//$code-color-keyword: #cc99cd;
+//$code-color-builtin: #cc99cd;
+//$code-color-string: #7ec699;
+//$code-color-char: #7ec699;
+//$code-color-attr-value: #7ec699;
+//$code-color-regex: #7ec699;
+//$code-color-variable: #7ec699;
+//$code-color-operator: #67cdcc;
+//$code-color-entity: #67cdcc;
+//$code-color-url: #67cdcc;
+//$code-color-line-numbers:$code-color;
+
+
+// 22. Prism
+// ==========================================================================
+
+// prism selector
+$code-selector:                                                         "code[class*=\"language-\"], pre[class*=\"language-\"]" !default;
+$code-selector-block:                                                   "pre[class*=\"language-\"]" !default;
+$code-selector-inline:                                                  ":not(pre) > code[class*=\"language-\"]" !default;
+
+// generic stuff
+$code-font-size: 		                                                16px !default;
+$code-line-height:		                                                17px !default;
+
+$code-tab-size: 		                                                4		!default;
+$code-hyphens: 			                                                none	!default;
+
+$code-block-padding: 	                                                12px	!default;
+$code-inline-padding: 	                                                2px 6px	!default;
+$code-border-radius: 	                                                5px		!default;
+
+$code-border: 1px solid #c5d0dc !default;
+//$code-border: 			                                                1px solid #e1e1e8 	!default;
+$code-background: 		                                                #f5f2f0 			!default;
+$code-color-fade:		                                                #bebec5 			!default;
+$code-text-shadow: 		                                                none !default;
+$code-box-shadow: 		                                                1px 1px .3em -.1em #000 inset !default;
+
+// prism tokens
+$code-color:                                                            black !default;
+$code-color-comment:                                                    #77B767 !default;
+$code-color-delimiter:                                                  $code-color !default;
+$code-color-class-name:                                                 $code-color !default;
+$code-color-punctuation:                                                #546E7A !default;
+$code-color-property:                                                   #90a4ae !default;
+$code-color-package:                                                    #6b4d4d !default;
+$code-color-selector:                                                   #669900 !default;
+$code-color-operator:                                                   #a67f59 !default;
+$code-color-atrule:                                                     #0077aa !default;
+$code-color-function:                                                   #195471 !default;
+$code-color-regex:                                                      #ee9900 !default;
+$code-color-prolog:                                                     $code-color-comment !default;
+$code-color-doctype:                                                    $code-color-comment !default;
+$code-color-cdata:                                                      $code-color-comment !default;
+$code-color-tag:                                                        $code-color-comment !default;
+$code-color-boolean:                                                    $code-color-property !default;
+$code-color-number:                                                     #138cec !default;
+$code-color-constant:                                                   $code-color-property !default;
+$code-color-symbol:                                                     $code-color-property !default;
+$code-color-deleted:                                                    $code-color-property !default;
+$code-color-attr-name:                                                  $code-color-selector !default;
+$code-color-string:                                                     $code-color-selector !default;
+$code-color-char:                                                       $code-color-selector !default;
+$code-color-builtin:                                                    $code-color-selector !default;
+$code-color-inserted:                                                   $code-color-selector !default;
+$code-color-keyword:                                                    #093246 !default; //#607D8B
+$code-color-variable:                                                   #78909C !default;
+$code-color-line-numbers: $code-color !default;
+//
+//$pretty--primary-color: $brand-primary;
+//$pretty--success-color: $brand-success;
+//$pretty--info-color:    $brand-info;
+//$pretty--warning-color: $brand-warning;
+//$pretty--danger-color:  $brand-danger;
+//
+
+//
+//$phpdoc-visibility-icon-public:  $fa-var-eye;
+//$phpdoc-visibility-icon-protected:  $fa-var-shield;
+//$phpdoc-visibility-icon-private:  $fa-var-eye-slash;
+//
+//$phpdoc-modifier-icon-static:  $fa-var-bolt;
+//$phpdoc-modifier-icon-abstract:  $fa-var-square-o;
+//$phpdoc-modifier-icon-inherited:  $fa-var-level-up;
+//$phpdoc-modifier-icon-final:  $fa-var-lock;
+//$phpdoc-type-icon-class:  $fa-var-file-code-o;
+//$phpdoc-type-icon-interface:  $fa-var-code;
+//$phpdoc-type-icon-trait:  $fa-var-terminal;
+
+//@formatter:on
+

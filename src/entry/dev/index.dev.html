@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="/" />
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <!--<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+    <!--<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">-->
+    <!--<script src="//localhost:8098"></script>-->
+    <!--
+      manifest.json provides metadata used when your web app is added to the
+      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <script>
+        window['__CODEX_PHP_DATA'] = {
+            "fetched"  : ["app", "layout", "projects"],
+            "available": ["app", "projects", "layout"],
+            "app"      : {"name": "Codex", "debug": true, "url": "http:\/\/codex.local", "timezone": "Europe\/Amsterdam", "locale": "en"},
+            "projects" : {"default": "codex", "items": [{"key": "test-zip-project", "display_name": "Test Project", "default_revision": "", "description": "This is a testing project", "revisions": []}, {"key": "blade-extensions", "display_name": "Blade Extensions", "default_revision": "6.2.0", "description": "Usefull Laravel 5 Blade Directives", "revisions": []}, {"key": "codex", "display_name": "Codex", "default_revision": "2.0.0-alpha", "description": "Codex is a file-based documentation system build with Laravel 5.3", "revisions": []}, {"key": "general", "display_name": "General Documentation", "default_revision": "master", "description": "General documentation for personal reference covering a wide array of subjects", "revisions": []}]},
+            "layout"   : {
+                "header": {"color": "blue-grey-9", "show": false, "static": true, "class": {"c-header": true}, "style": [], "menuViewer": [], "title": "Codex", "revealOnScroll": true, "showTitle": true, "showLeftToggle": true, "showRightToggle": false},
+                "left"  : {"show": true, "static": false, "below_header": true, "aboveFooter": true, "class": {"c-left": true}, "style": [], "menuViewer": []},
+                "right" : {"belowHeader": true, "aboveFooter": true, "class": {"c-right": true}, "show": false, "static": true, "style": [], "menuViewer": []},
+                "page"  : {"class": {"c-page": true}, "style": []},
+                "footer": {"color": "blue-grey-9", "class": {"c-footer": true}, "show": true, "static": false, "style": [], "menuViewer": []}
+            }
+        };
+    </script>
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>React App</title>
+</head>
+<body>
+<noscript>
+    You need to enable JavaScript to run this app.
+</noscript>
+<div id="root"></div>
+</body>
+</html>

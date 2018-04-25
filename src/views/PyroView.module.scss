@@ -1,0 +1,31 @@
+.layout {
+    min-height: 100vh;
+    width: 100vw
+}
+
+.gvt-table {
+    margin: 20px;
+}
+
+.gvt-row {
+
+    background-color: #143a4e;
+}
+
+.gvt-cell {
+    border: 1px solid #0c2430;
+    padding: 5px;
+
+}
+
+.gvt-value {
+    color: white;
+    display: block;
+}
+
+.gvt-info {
+    color: #b0b0b0;
+    font-size: 10px;
+    display: block;
+}
+

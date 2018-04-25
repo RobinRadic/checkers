@@ -1,0 +1,26 @@
+
+.header {
+    background-color: #002140;
+
+    .bla {
+        color: black;
+    }
+}
+
+.sideMenuToggle {
+    font-size: 30px;
+    color   : white;
+    padding : 17px;
+    height  : 100%;
+    &:hover { cursor: pointer }
+}
+
+.sideMenuToggleLeft {
+    @extend .sideMenuToggle;
+    float: left;
+}
+.sideMenuToggleRight {
+    @extend .sideMenuToggle;
+    float: right;
+}
+

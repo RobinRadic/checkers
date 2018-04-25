@@ -1,0 +1,9 @@
+@import "rmenu";
+
+// css module
+.menu-item {
+    margin:           20px;
+    background-color: $blue-grey-7;
+
+    &:hover{ background-color: $blue-grey-4 ; }
+}

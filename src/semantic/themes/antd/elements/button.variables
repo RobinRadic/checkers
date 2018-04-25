@@ -1,0 +1,18 @@
+/*-------------------
+      Globals
+--------------------*/
+
+/* Button */
+@backgroundColor: #E0E1E2;
+
+/* Text */
+@fontWeight: normal;
+
+/* Hovered */
+@hoverBackgroundColor: saturate(lighten(@backgroundColor, 5), 10, relative);
+
+/* Pressed Down */
+@downBackgroundColor: saturate(darken(@backgroundColor, 5), 10, relative);
+
+/* Basic Hover */
+@basicHoverTextColor: @selectedBorderColor;

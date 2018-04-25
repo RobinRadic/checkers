@@ -1,0 +1,93 @@
+/**
+ * Copyright (c) 2018. Codex Project
+ *
+ * The license can be found in the package and online at https://codex-project.mit-license.org.
+ *
+ * @copyright 2018 Codex Project
+ * @author Robin Radic
+ * @license https://codex-project.mit-license.org MIT License
+ */
+
+//////////////////////////////
+/// BOOTSTRAP OVERRIDES
+//////////////////////////////
+
+$enable-rounded:                                false;
+
+$font-family-sans-serif:                        "Open Sans", Arial, sans-serif;
+$font-family-monospace:                         "Hasklig", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+$headings-font-family:                          'Raleway', "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif ;
+$headings-font-weight:                          400;
+$headings-color:                                $grey-6;
+$brand-primary:                                 $color-codex;
+
+$font-size-root:                                $font-size;
+$font-size-base: 0.85rem;
+$brand-primary-color: $color-codex;
+$brand-accent-color: $color-codex-alt;
+
+//////////////////////////////
+/// FONTAWESOME OVERRIDES
+//////////////////////////////
+$fa-font-size-base:     $font-size;
+//$fa-font-path:        "/assets/fonts";
+// for referencing Bootstrap CDN font files directly:
+//$fa-font-path:        "//netdna.bootstrapcdn.com/font-awesome/4.6.3/fonts"
+
+
+$carousel-text-shadow:                          3px 3px 3px rgba(0, 0, 0, .6) !default;
+$carousel-control-font-size:                    70px;
+$carousel-control-sm-up-size:                   90px;
+$carousel-caption-width:                        50%;
+$carousel-caption-sm-up-width:                  50%;
+$carousel-caption-border-color:                 $grey-4 !default; // custom
+$carousel-caption-color:                        $grey-3;
+$carousel-caption-font-size:                    2.2rem !default; // custom
+$carousel-icon-width:                           70px;
+
+$code-padding-y:                                0.1rem;
+$code-padding-x:                                0.3rem;
+$code-font-size:                                0.85rem;
+$code-color:                                    #ed7375;
+$code-bg:                                       #eeeeee;
+
+
+
+//////////////////////////////
+/// MATERIALIZE-CSS OVERRIDES
+//////////////////////////////
+$button-radius:                                 0;
+$button-floating-radius:                        0;
+$select-radius:                                 0;
+$switch-radius:                                 0;
+$roboto-font-path:                              "../fonts/roboto/";
+
+
+
+//////////////////////////////
+/// JSTREE OVERRIDES
+//////////////////////////////
+$plugin-checkbox:                               false;
+$plugin-contextmenu:                            true;
+$plugin-dnd:                                    false;
+$plugin-search:                                 false;
+$plugin-wholerow:                               true;
+$plugin-conditionalselect:                      false;
+
+
+
+//////////////////////////////
+/// PRETTY CHECKBOX OVERRIDES
+//////////////////////////////
+$pretty--font-family:                           'Font Awesome';
+$pretty--border-radius:                         0;
+
+
+
+//////////////////////////////
+/// FANCYUI OVERRIDES
+//////////////////////////////
+// The UI font stack
+$font-stack                     : $font-family-sans-serif;
+// Base font size
+$base-font-size                 : $font-size-root; // typically 16px in most browsers

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="/"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <script>
+        window['__CODEX_PHP_DATA'] = {
+            'fetched'  : ['app', 'layout', 'projects'],
+            'available': ['app', 'projects', 'layout'],
+            'app'      : {'name': 'Codex', 'debug': true, 'url': 'http:\/\/codex.local', 'timezone': 'Europe\/Amsterdam', 'locale': 'en'},
+            'projects' : {'default': 'codex', 'items': [{'key': 'test-zip-project', 'display_name': 'Test Project', 'default_revision': '', 'description': 'This is a testing project', 'revisions': []}, {'key': 'blade-extensions', 'display_name': 'Blade Extensions', 'default_revision': '6.2.0', 'description': 'Usefull Laravel 5 Blade Directives', 'revisions': []}, {'key': 'codex', 'display_name': 'Codex', 'default_revision': '2.0.0-alpha', 'description': 'Codex is a file-based documentation system build with Laravel 5.3', 'revisions': []}, {'key': 'general', 'display_name': 'General Documentation', 'default_revision': 'master', 'description': 'General documentation for personal reference covering a wide array of subjects', 'revisions': []}]},
+            'layout'   : {
+                'header': {'color': 'blue-grey-9', 'show': false, 'static': true, 'class': {'c-header': true}, 'style': [], 'menuViewer': [], 'title': 'Codex', 'revealOnScroll': true, 'showTitle': true, 'showLeftToggle': true, 'showRightToggle': false},
+                'left'  : {'show': true, 'static': false, 'below_header': true, 'aboveFooter': true, 'class': {'c-left': true}, 'style': [], 'menuViewer': []},
+                'right' : {'belowHeader': true, 'aboveFooter': true, 'class': {'c-right': true}, 'show': false, 'static': true, 'style': [], 'menuViewer': []},
+                'page'  : {'class': {'c-page': true}, 'style': []},
+                'footer': {'color': 'blue-grey-9', 'class': {'c-footer': true}, 'show': true, 'static': false, 'style': [], 'menuViewer': []}
+            }
+        };
+    </script>
+    <title>Codex</title>
+</head>
+<body>
+<noscript>
+    You need to enable JavaScript to run this app.
+</noscript>
+<div id="root"></div>
+<script>
+    document.addEventListener('DOMContentLoaded', function (event) {
+        var load = window['CodexLoader'];
+        load().then(function (booter) {
+            return booter.init(); // loads all modules into the container
+        }).then(function (booter) {
+            // console.log(booter)
+            // this would be the moment any adjustments be done to any of the bindings
+
+            // booter.Symbols
+            // booter.container
+            // booter.router
+
+            // once modifications done, we can start
+            var elementId = 'root'
+            return booter.boot(elementId);
+        }).then(function(booter){
+            // The application has started
+        });
+    });
+</script>
+</body>
+</html>

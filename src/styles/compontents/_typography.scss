@@ -1,0 +1,38 @@
+/**
+ * Copyright (c) 2018. Codex Project
+ *
+ * The license can be found in the package and online at https://codex-project.mit-license.org.
+ *
+ * @copyright 2018 Codex Project
+ * @author Robin Radic
+ * @license https://codex-project.mit-license.org MIT License
+ */
+
+
+
+body {
+    margin: 0; // 1
+    font-family: $font-family-base;
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+    line-height: $line-height-base;
+    color: $body-color;
+    background-color: $body-bg; // 2
+}
+
+@import "../vendor/bootstrap/type";
+
+@for $i from 9 through 50 {
+    .fs-#{$i} {
+        font-size: #{$i}px !important;;
+    }
+}
+
+$font-weights: 100 200 300 400 500 600 700 800 900 bold bolder lighter normal;
+@each $weight in $font-weights {
+    .fw-#{$weight} {
+        font-weight: $weight !important;
+    }
+}
+
+.text-muted { color: $text-muted !important; }

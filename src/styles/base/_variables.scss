@@ -1,0 +1,137 @@
+/**
+ * Copyright (c) 2018. Codex Project
+ *
+ * The license can be found in the package and online at https://codex-project.mit-license.org.
+ *
+ * @copyright 2018 Codex Project
+ * @author Robin Radic
+ * @license https://codex-project.mit-license.org MIT License
+ */
+
+//////////////////////////////
+/// CODEX VARIABLES
+//////////////////////////////
+// @formatter:off
+$webpack-build:                                                         false !default;
+$image-path: '../assets/img' !default;
+
+///
+// LAYOUT
+$font-size:                                                             14px;
+$header-height:                                                         50px;
+$sidebar-width:                                                         250px;
+$footer-height:                                                         30px;
+$page-gutter-size:                                                      20px;
+$page-gutter-widths: (
+  xs: $page-gutter-size,
+  sm: $page-gutter-size,
+  md: $page-gutter-size,
+  lg: $page-gutter-size,
+  xl: $page-gutter-size
+);
+// colors
+$color-codex:                                                           #ed6626 !default;
+$color-codex-alt:                                                       #54b7e8 !default; //#e7461a
+$color-codex-grey:                                                      #56565f !default;
+$color-codex-grey-alt:                                                  #3a3a3f !default;
+
+
+// loader
+$codex-loader-size:                                                     100px !default;
+$codex-loader-margin:                                                   150px auto !default;
+$codex-loader-color:                                                    #b0bec5 !default;
+$codex-loader-speed:                                                    2.0s !default;
+
+
+///
+// THEME
+$bg-color:                                                              $blue-grey-8 !default;
+$bg:                                                                    $bg-color  !default;
+
+$page-bg-color:                                                         #37474f;
+$page-bg:                                                               $page-bg-color;
+
+
+$content-color:                                                         #333333 !default;
+$font-color:                                                            $content-color;
+$content-font-color:                                                    $content-color;
+
+
+$content-wrapper-bg-color:                                              $blue-grey-2 !default;
+$content-wrapper-bg:                                                    $content-wrapper-bg-color !default;
+$content-bg-color:                                                      $grey-5 !default;
+$content-bg:                                                            $content-bg-color !default;
+
+$header-bg-color:                                                       $blue-grey-9 !default;
+$header-bg:                                                             $header-bg-color !default;
+$header-sidebar-toggler-color:                                          $blue-grey-2 !default;
+$header-item-link-color:                                                $blue-grey-1 !default;
+$header-item-bg-color:                                                  $blue-grey-7 !default;
+$header-item-split-top-color:                                           $header-item-link-color !default;
+$header-item-split-top-bg-color:                                        $blue-grey-8 !default;
+$header-logo-text-color:                                                $color-codex !default;
+$header-logo-text-font-size:                                            28px !default;
+$header-logo-text-padding:                                              10px 0 !default;
+$header-logo-text-font-family:                                          inherit !default;
+
+// Footer
+$footer-font-color:                                                     $blue-grey-2;
+$footer-bg-color: 												        $blue-grey-9 !default;
+$footer-bg: $footer-bg-color;
+$footer-copyright-bg-color:                                             #1e282d;
+
+// Sidebar menu
+$sidebar-bg-color:                                                      $blue-grey-2 !default;
+$sidebar-bg:                                                            $sidebar-bg-color !default;
+$sidebar-menu-active-color:                                             $blue-grey-6 !default;
+
+$sidebar-collapsed-width:   											54px  !default; // minimized/collapsed sidebar width. default:35px
+$sidebar-collapsed-compact-width:   											45px  !default; // minimized/collapsed sidebar width. default:35px
+$sidebar-collapsed-submenu-width-on-hover:								($sidebar-width - 1) !default; // sub menu width displayed on hover in collapsed sidebar mode. default:210px
+$sidebar-logo-container-width:  										($sidebar-width + 30) !default; // logo container width. Normally same with sidebar-width.
+$sidebar-logo-container-width-xs: 										110px !default; // logo container width in mobile portrait view. default:110px.
+$sidebar-logo-container-width-xxs: 										100px !default; // logo container width in mobile landspace view. default:100px.
+
+$sidebar-menu-link-font-size:                                           $font-size !default;
+$sidebar-menu-link-font-weight:                                         300 !default;
+$sidebar-menu-link-icon-font-size:                                      15px !default;
+$sidebar-menu-link-arrow-font-size:                                     13px !default;
+$sidebar-menu-sub-menu-link-icon-font-size:                             0.9rem !default;
+
+$sidebar-menu-link-font-color:                                  		$blue-grey-5 !default;
+$sidebar-menu-link-font-color-on-hover:                         		$blue-grey-1 !default;
+$sidebar-menu-link-font-color-on-active:                        		$color-codex !default;
+
+$sidebar-menu-link-icon-font-color:                             		$color-codex-grey !default;
+$sidebar-menu-link-icon-font-color-on-active:                   		$color-codex-grey-alt !default;
+$sidebar-menu-link-icon-font-color-on-hover:                            $blue-grey-5 !default;
+
+$sidebar-menu-link-bg-color:                                            $sidebar-bg-color !default;
+$sidebar-menu-link-bg-color-on-hover:                           		$blue-grey-3 !default;
+$sidebar-menu-link-bg-color-on-active:                          		$blue-grey-1 !default;
+
+$sidebar-menu-arrow-color:                                      		lighten($sidebar-menu-link-icon-font-color, 3%) !default;
+$sidebar-menu-arrow-color-on-active:                            		lighten($sidebar-menu-link-icon-font-color-on-active, 3%) !default;
+$sidebar-menu-arrow-color-on-hover:                                     lighten($sidebar-menu-link-icon-font-color-on-hover, 3%) !default;
+
+$sidebar-menu-sub-menu-link-font-color:                         		$sidebar-menu-link-font-color !default;
+$sidebar-menu-sub-menu-link-icon-font-color:                    		$sidebar-menu-link-icon-font-color !default;
+$sidebar-menu-sub-menu-link-bg-color-on-hover:                  		$sidebar-menu-link-bg-color-on-hover !default;
+$sidebar-menu-sub-menu-link-font-color-on-hover:                  		$sidebar-menu-link-font-color-on-hover !default;
+$sidebar-menu-sub-menu-link-icon-font-color-on-hover:                   $sidebar-menu-link-icon-font-color-on-hover !default;
+
+$sidebar-menu-sub-menu-link-bg-color-on-active:                         $sidebar-menu-link-bg-color-on-active !default;
+$sidebar-menu-sub-menu-link-font-color-on-active:                       $sidebar-menu-link-font-color-on-active !default;
+$sidebar-menu-sub-menu-link-icon-font-color-on-active:                  $sidebar-menu-link-icon-font-color-on-active !default;
+
+$sidebar-menu-sub-menu-box-shadow-color:                                darken($sidebar-menu-link-bg-color-on-hover, 30%) !default;
+$sidebar-menu-hover-sub-menu-bg-color:									#FFFFFF !default;
+
+$sidebar-menu-hover-box-shadow-header:                                  6px 5px 0px rgba(94, 109, 116, 0.8);
+$sidebar-menu-hover-box-shadow-sub-menu:                                6px 5px 0px rgba(176, 168, 168, 0.8);
+
+
+$sidebar-menu-sub-menu-box-shadow:                                      4px 4px 0px rgba(#000000, 0.1) !default;
+
+$scroll-to-top-color:                                                   $page-bg-color !default;
+$scroll-to-top-color-on-hover:                                          lighten($scroll-to-top-color, 20%) !default;

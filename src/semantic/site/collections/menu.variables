@@ -1,0 +1,5 @@
+
+@boxShadow: none;
+@border: none;
+@background: black;
+@verticalHeaderFontSize: 14px;

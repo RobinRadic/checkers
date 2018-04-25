@@ -1,0 +1,102 @@
+/**
+ * Copyright (c) 2018. Codex Project
+ *
+ * The license can be found in the package and online at https://codex-project.mit-license.org.
+ *
+ * @copyright 2018 Codex Project
+ * @author Robin Radic
+ * @license https://codex-project.mit-license.org MIT License
+ */
+
+////
+/// @author Robin Radic
+/// @group Mixins
+////
+
+@mixin outline($color) {
+    box-sizing: border-box;
+    border: 1px solid $color;
+}
+
+@mixin center-width($width) {
+    width: #{$width + '%'};
+    $lr: (100 - $width) / 2;
+    left: #{$lr + '%'};
+    right: #{$lr + '%'};
+}
+
+////
+/// @author Robin Radic
+/// @group Components
+////
+
+/// Create a loader
+/// @param {string} $name - The name of zeh loadah
+/// @param {color} $color [#333333] - The color of zeh lodah
+/// @param {dimension} $color [#333333] - The color of zeh lodah
+/// @param {dimension} $margin [40px auto] - The color of zeh lodah
+/// @param {time} $speed [2.0s] - The color of zeh lodah
+@mixin createLoader($name, $color: #333333, $size: 100px, $margin: 40px auto, $speed: 2.0s) {
+
+    .loader-#{$name} {
+        width: 100px;
+        height: 100px;
+        background-color: $color;
+        margin: $margin;
+        animation: loader-#{$name}-animation $speed infinite ease-in-out;
+    }
+
+    @keyframes loader-#{$name}-animation {
+        0% {
+            transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+        }
+        50% {
+            transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+        }
+        100% {
+            transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+        }
+    }
+
+}
+
+/// Make a loader
+/// @param {string} $name - The name of zeh loadah
+@mixin makeLoader($name) {
+    .#{$name}-loader {
+        display: none;
+    }
+
+    .#{$name}-loading {
+        @include createLoader($name, $codex-loader-color, $codex-loader-size, $codex-loader-margin, $codex-loader-speed);
+
+        .#{$name}-loader {
+            display: block;
+        }
+
+        @content
+    }
+}
+
+@mixin scrollbar-variant($scrollbar-color:#f5f5f5,$scrollbar-track-color: #f5f5f5, $scrollbar-thumb-color: #aaaaaa, $scrollbar-width: 10px) {
+    &::-webkit-scrollbar {
+        width: $scrollbar-width;
+        background-color: $scrollbar-color;
+        &-track { background-color: $scrollbar-track-color; }
+        &-thumb { background-color: $scrollbar-thumb-color; }
+        @content
+    }
+}
+
+
+
+@mixin Monospace($important:true) {
+    @if($important) {
+        font-family: $font-family-monospace !important;
+        text-rendering: optimizeLegibility !important;;
+    } @else {
+        font-family: $font-family-monospace;
+        text-rendering: optimizeLegibility;
+    }
+    @content
+}

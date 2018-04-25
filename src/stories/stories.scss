@@ -1,0 +1,8 @@
+@import "../styles/base";
+
+.container {
+    @include flex-grid-row();
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+

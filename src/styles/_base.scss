@@ -1,0 +1,55 @@
+/**
+ * Copyright (c) 2018. Codex Project
+ *
+ * The license can be found in the package and online at https://codex-project.mit-license.org.
+ *
+ * @copyright 2018 Codex Project
+ * @author Robin Radic
+ * @license https://codex-project.mit-license.org MIT License
+ */
+
+//////////////////////////////
+// BASE
+// include this anywhere u want
+//////////////////////////////
+
+$output-bourbon-deprecation-warnings: false;
+
+//////////////
+/// ANY
+@import "../../node_modules/bourbon/core/bourbon";
+
+//////////////
+/// FUNCTIONS
+@import "base/functions/generic";
+@import "base/functions/data-types";
+@import "base/functions/deep-getset-maps";
+@import "vendor/bootstrap/functions";
+
+
+
+//////////////
+/// VARIABLES
+
+// Codex variables
+@import "base/colors";
+@import "base/variables";
+@import "base/variable_overrides";
+@import "vendor/bootstrap/variables";
+//@import "../../node_modules/font-awesome/scss/variables";
+@import "../../node_modules/animate-scss/properties";
+@import "base/extending_variables";
+
+
+
+///////////
+/// MIXINS
+
+// Base Codex mixins
+@import "base/mixins";
+@import "vendor/bootstrap/mixins";
+//@import "../../node_modules/font-awesome/scss/mixins";
+@import "base/extending_mixins";
+
+
+@import "foundation/scss/foundation";
