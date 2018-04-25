@@ -3,7 +3,6 @@ import { observer } from 'mobx-react';
 import { FontAwesomeIcon } from 'interfaces';
 import { CSSModules, Hot } from 'decorators'
 import { classes, style, types } from 'typestyle';
-import * as styles from './icon.module.styl';
 
 const log = require('debug')('components:log')
 
@@ -18,9 +17,8 @@ export interface IconProps {
 }
 
 @Hot(module)
-@CSSModules(styles)
 @observer
-export class Icon extends React.Component<IconProps & CSSModules.InjectedCSSModuleProps> {
+export class Icon extends React.Component<IconProps> {
     static identifier: string               = 'fas ';
     static prefix: string                   = 'fa-';
     static defaultProps: Partial<IconProps> = {

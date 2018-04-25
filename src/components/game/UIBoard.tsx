@@ -3,10 +3,10 @@ import { observer } from 'mobx-react';
 import { DNDContext, Hot } from 'decorators';
 import { classes, style, types } from 'typestyle'
 import HTML5Backend from 'react-dnd-html5-backend';
-import UITile from '@/checkers/UITile';
+import UITile from '@/game/UITile';
 // import { black, white } from 'csx';
-import { Game, Tile } from '@/checkers/logic';
-import UIPiece from '@/checkers/UIPiece';
+import { Game, Tile } from '@/game/logic';
+import UIPiece from '@/game/UIPiece';
 
 const log = require('debug')('components:checkers:UIBoard')
 

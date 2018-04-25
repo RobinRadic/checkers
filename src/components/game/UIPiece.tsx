@@ -3,8 +3,8 @@ import { observer } from 'mobx-react';
 import { DNDSource, Hot } from 'decorators';
 import { classes, style } from 'typestyle'
 import { ConnectDragSource, DragSourceCollector, DragSourceConnector, DragSourceMonitor, DragSourceSpec } from 'react-dnd';
-import { Color, Piece } from '@/checkers/logic';
-import { DragItem } from '@/checkers/interfaces';
+import { Color, Piece } from '@/game/logic';
+import { DragItem } from '@/game/interfaces';
 
 
 const log = require('debug')('components:checkers:UIPiece')

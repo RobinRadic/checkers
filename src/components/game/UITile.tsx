@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { DNDTarget, Hot } from 'decorators';
 import { ConnectDropTarget, DropTargetConnector, DropTargetMonitor } from 'react-dnd'
-import { Piece, Tile } from '@/checkers/logic';
-import UIPiece from '@/checkers/UIPiece';
+import { Piece, Tile } from '@/game/logic';
+import UIPiece from '@/game/UIPiece';
 import DropTargetSpec = __ReactDnd.DropTargetSpec;
-import Square from '@/checkers/Square';
-import { DragItem, DragItems } from '@/checkers/interfaces';
+import Square from '@/game/Square';
+import { DragItem, DragItems } from '@/game/interfaces';
 
 const log = require('debug')('components:checkers:UITile')
 

@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { Col, Layout, Row, Select } from 'antd';
-import { CSSModules, DNDContext, Hot } from 'decorators';
-import UIBoard from '@/checkers/UIBoard';
-import { Color, Direction, Game, HumanPlayer } from '@/checkers/logic';
+import { Col, Layout, Row } from 'antd';
+import { Hot } from 'decorators';
+import UIBoard from '@/game/UIBoard';
+import { Color, Direction, Game, HumanPlayer } from '@/game/logic';
+import { style } from 'typestyle';
 
 
 const { Header, Content, Sider, Footer } = Layout;
 const log                                = require('debug')('views:home')
-const { Option }                         = Select
 
-export interface PyroViewProps extends React.CSSProperties {}
+export interface GameViewProps extends React.CSSProperties {}
 
 
 @Hot(module)
 @observer
-export default class CheckersView extends Component<PyroViewProps, {}> {
-    static displayName = 'CheckersView';
+export default class GameView extends Component<GameViewProps, {}> {
+    static displayName = 'GameView';
            game: Game;
 
     constructor(props = {}, ctx) {
@@ -32,9 +32,10 @@ export default class CheckersView extends Component<PyroViewProps, {}> {
 
         log('GAME', this.game)
     }
+
     render() {
         return (
-            <Layout styleName="layout">
+            <Layout className={style({ height: '100vh' })}>
                 <Header>Header</Header>
                 <Layout>
                     <Content>

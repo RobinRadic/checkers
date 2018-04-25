@@ -14,8 +14,6 @@
         "serve:dev": "nodemon node_modules/.bin/gulp serve:dev",
         "serve:pre": "nodemon node_modules/.bin/gulp serve:pre",
         "serve:prod": "nodemon node_modules/.bin/gulp serve:prod",
-        "serve:prod:lv": "nodemon node_modules/.bin/gulp serve:prod:lv",
-        "storybook": "node --max_old_space_size=4096 --nolazy -r ts-node/register node_modules/.bin/start-storybook -p 6006",
         "analyze:prod": "webpack-bundle-analyzer dist/stats.json",
         "dev": "hyperlayout dev:story"
     },
