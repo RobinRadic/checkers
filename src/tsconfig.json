@@ -28,7 +28,6 @@
             "game": ["./logic/game/index.ts"],
             "ioc": ["./logic/ioc/index.ts"],
             "router": ["./logic/router/index.tsx"],
-            "router/*": ["./logic/router/*"],
 
             "interfaces": ["./interfaces.ts"],
             "decorators": ["./decorators.tsx"],

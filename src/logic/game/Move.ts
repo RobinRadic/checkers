@@ -1,6 +1,7 @@
 import { Direction, IPlayer } from './types';
 import { Tile } from './Tile';
 import { Piece } from './Piece'
+
 const log = require('debug')('game:Move')
 
 export class Move {
@@ -25,9 +26,18 @@ export class Move {
         return dist;
     }
 
+    public getColDistance(): number {
+        let first = this.from.col >= this.to.col ? 'from' : 'to'
+        return this[ first ].col - this[ first === 'to' ? 'from' : 'to' ].col;
+    }
+
+    public getRowDistance(): number {
+        let first = this.from.row >= this.to.row ? 'from' : 'to'
+        return this[ first ].row - this[ first === 'to' ? 'from' : 'to' ].row;
+    }
+
     public isJumpingTile(): boolean {
-        //displacement
-        if ( this.getDistance() === 1 ) {
+        if ( this.getDistance() !== 2 || this.getRowDistance() !== 2 || this.getColDistance() !== 2 ) {
             return false;
         }
         let tile = this.getJumpedTile();
@@ -42,14 +52,18 @@ export class Move {
         if ( this.getDistance() === 1 ) {
             return;
         }
-        let drow   = this.to.row - this.from.row;
-        let dcol   = this.to.col - this.from.col;
-        let jumped = {
-            row: Math.floor(this.from.row + drow / 2),
-            col: Math.floor(this.from.col + dcol / 2)
+
+        if ( this.getDistance() === 2 ) {
+            let drow   = this.to.row - this.from.row;
+            let dcol   = this.to.col - this.from.col;
+            let jumped = {
+                row: Math.floor(this.from.row + drow / 2),
+                col: Math.floor(this.from.col + dcol / 2)
+            }
+            log('getJumpedTile', { jumped, drow, dcol, me: this })
+            return this.piece.game.board.getTile(jumped.row, jumped.col);
         }
-        log('getJumpedTile', { jumped, drow, dcol, me: this })
-        return this.piece.game.board.getTile(jumped.row, jumped.col);
+
 
     }
 

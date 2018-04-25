@@ -27,9 +27,8 @@ class RouteView extends Component<RouteViewProps> {
         if ( ! currentRoute ) {
             throw new Error('RouteView component requires a route prop');
         }
-        log('RouteView render', {route, routeNodeName, routes, currentRoute})
         const SelectedComponent = getComponent(currentRoute, routeNodeName, routes); // getComponent may throw
-        log('RouteView render', {SelectedComponent})
+        log('RouteView render', {route, routeNodeName, routes, currentRoute,SelectedComponent})
         // Add `{key: route.meta.id}` to props for a full unmount/mount
         return createElement(SelectedComponent, { ...passThroughProps, route });
     }

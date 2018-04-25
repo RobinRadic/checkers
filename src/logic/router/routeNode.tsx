@@ -16,30 +16,28 @@ function routeNode(nodeName) { // route node Name, routerStore name
 
             @inject(Symbols.RouterStore) routerStore: RouterStore
 
-            get router() {return this.routerStore.router}
-
-            state = {
-                route: this.routerStore.route
-            };
-
             autorunDisposer
             nodeName
 
+            get router() {return this.routerStore.router}
+
+            @computed get route() { return this.routerStore.route }
+
+            @computed get intersectionNode() { return this.routerStore.intersectionNode }
+
             // Compute a new observable used by autorun
-            @computed get isIntersection() {
-                return this.routerStore.intersectionNode === this.nodeName;
-            }
+            @computed get isIntersection() { return this.intersectionNode === this.nodeName; }
 
             componentDidMount() {
-                log('componentDidMount', {me:this})
+                log('componentDidMount', { me: this })
                 this.autorunDisposer = autorun(() => {
-                    log('componentDidMount', 'autorun', 'isIntersection', this.isIntersection, {me:this})
+                    log('componentDidMount', 'autorun', 'isIntersection', this.isIntersection, { me: this })
                     // Change state only if this is the correct "transition node" for the current transition
                     // This will re-render this component and so the wrapped RouteSegment component
                     if ( this.isIntersection ) {
-                        this.setState({
-                            route: this.routerStore.route
-                        });
+                        // this.setState({
+                        //     route: this.route
+                        // });
                     }
                 });
             }
@@ -49,8 +47,8 @@ function routeNode(nodeName) { // route node Name, routerStore name
             }
 
             render() {
-                log('render', {me:this})
-                const { route }  = this.routerStore;
+                log('render', { me: this })
+                const route      = this.route;
                 const plainRoute = toJS(route); // convert to plain object
                 return createElement(RouteComponent, { ...this.props, route, plainRoute });
             }

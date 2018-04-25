@@ -6,7 +6,6 @@ import NavLink from './NavLink';
 import routeNode from './routeNode';
 import RouteViewErrorBoundary from './RouteView';
 import RouteView from './RouteView';
-import { getComponent,getDisplayName,ifNot } from './utils';
 import withLink from './withLink';
 import withRoute from './withRoute';
 
@@ -22,7 +21,5 @@ export {
     RouteView,
     RouteViewErrorBoundary,
     withLink,
-    withRoute,
-    getDisplayName,
-    getComponent
+    withRoute
 };

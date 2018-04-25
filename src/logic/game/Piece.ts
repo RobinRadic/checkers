@@ -32,6 +32,8 @@ export class Piece {
         return new Move(this, this.tile, to);
     }
 
+    public moveTo(to: Tile) { this.game.executeMove(this.createMove(to)); }
+
     // public move(to: Tile) {
     //     let move = this.createMove(to);
     //     log('move', { move, to })

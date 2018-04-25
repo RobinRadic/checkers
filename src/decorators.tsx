@@ -7,22 +7,6 @@ import { DndOptions, DragDropContext, DragSource, DragSourceCollector, DragSourc
 
 const log = require('debug')('decorators')
 
-//
-// let ignoreDefault = [ 'length', 'name', 'prototype', 'isMobXReactObserver' ]
-//
-// function getOwnNames(target, ignore: string[] = [], ignoreDefaults: boolean = true) {
-//     let props = {}
-//     let names = Object.getOwnPropertyNames(target);
-//     ignore    = ignoreDefaults ? ignore.concat(ignoreDefault) : ignore;
-//     names     = names.filter(name => ignore.includes(name) == false);
-//     names.forEach(name => {
-//         props[ name ] = target[ name ];
-//     })
-//     log('getOwnNames', 'reapply', names, props)
-//     return (target) => names.forEach(name => target[ name ] = props[ name ])
-//
-// }
-
 
 export function CSSModules(style) {
     return (target) => {

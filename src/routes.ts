@@ -1,6 +1,7 @@
 import { Route } from 'router';
 import { Loading } from '@/Loading';
 import Loadable from 'react-loadable'
+import {} from 'router5'
 
 const log = require('debug')('routes')
 
