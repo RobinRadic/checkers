@@ -300,6 +300,11 @@ export class Game extends EventEmitter2 {
             return false;
         }
 
+        // rule: cannot move forward more then 1 tile (prevents kinged pieces to move more then 1)
+        if(move.getDistance() > 1){
+            return false;
+        }
+
         if ( ! move.to.isOccupied ) {
             if ( move.getDistance() === 1 ) {
                 return true;
