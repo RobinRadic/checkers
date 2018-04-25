@@ -1,6 +1,4 @@
-import { inject, injectable } from 'inversify';
-import { Symbols } from 'ioc';
-import { Api } from 'api';
+import { injectable } from 'inversify';
 import { action, observable } from 'mobx';
 import { Params, Router, State } from 'router5/create-router';
 import { NavigationOptions } from 'router5/core/navigation';
@@ -9,7 +7,6 @@ import { transitionPath } from 'router5';
 
 @injectable()
 export class RouterStore {
-    @inject(Symbols.Api) api: Api
     @observable route: State         = null;
     @observable previousRoute: State = null;
     @observable transitionRoute      = null;
@@ -19,7 +16,7 @@ export class RouterStore {
     @observable toDeactivate         = [];
     // @observable currentView;
 
-    router:Router = null;
+    router: Router = null;
 
 
     setRouter(router) {

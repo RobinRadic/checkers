@@ -1,9 +1,7 @@
 import browserPlugin, { BrowserPluginOptions } from 'router5/plugins/browser';
-import { container, Symbols } from 'ioc';
 import { Options } from 'router5/create-router';
 import createRouter from 'router5';
 import { Route } from './types';
-import { apiCallMiddleware, forwardMiddleware } from './middleware';
 import { RouterStore } from 'stores';
 import mobxPlugin from './mobxPlugin';
 
@@ -28,13 +26,9 @@ export function makeRouter(routes: Route[], routerStore: RouterStore, routerOpti
     }
 
     router
-        .setDependency('store', container.get(Symbols.RootStore))
-        .setDependency('api', container.get(Symbols.Api))
         .usePlugin(browserPlugin(browserPluginOptions))
         .usePlugin(mobxPlugin(routerStore))
-        // .usePlugin(loggerPlugin)
-        .useMiddleware(apiCallMiddleware(routes))
-        .useMiddleware(forwardMiddleware(routes))
+    // .usePlugin(loggerPlugin)
 
     return router;
 

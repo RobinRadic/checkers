@@ -1,6 +1,4 @@
 import { Container, ServiceIdentifier } from './Container'
-import { Symbols } from './Symbols';
-import { containerModule } from './module';
 import { decorate, injectable, interfaces, postConstruct } from 'inversify';
 import { makeFluentProvideDecorator, makeProvideDecorator } from 'inversify-binding-decorators';
 import getDecorators from 'inversify-inject-decorators';
