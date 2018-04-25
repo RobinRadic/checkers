@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
-import { injectable } from 'inversify';
 import { observer } from 'mobx-react';
 import { inject, Symbols } from 'ioc';
-import { InjectedProps } from 'react-typestyle-preset';
-import { hot } from 'react-hot-loader';
 import RootNode from 'views/nodes/RootNode';
 import { BreakpointStore } from 'stores';
+import { Hot } from 'decorators';
 
 const log = require('debug')('component:Layout')
 
-interface Props extends Partial<InjectedProps> {}
+interface Props {}
 
 interface State {}
 
+@Hot(module)
 @observer
-@injectable()
-class RootView extends Component<Props, State> {
+export default class RootView extends Component<Props, State> {
     static displayName = 'RootView'
     @inject(Symbols.BreakpointStore) store: BreakpointStore
 
@@ -27,4 +25,3 @@ class RootView extends Component<Props, State> {
 }
 
 
-export default hot(module)(RootView)

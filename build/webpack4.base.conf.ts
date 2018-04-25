@@ -154,7 +154,7 @@ export default ():Configuration => {
             alias     : {
                 src: resolve('src'),
 
-                api   : resolve('src/logic/api/index.ts'),
+                game   : resolve('src/logic/game/index.ts'),
                 ioc   : resolve('src/logic/ioc/index.ts'),
                 router: resolve('src/logic/router/index.tsx'),
                 stores: resolve('src/logic/stores/index.ts'),

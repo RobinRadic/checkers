@@ -2,9 +2,15 @@ import { AxiosRequestConfig } from 'axios';
 import { InjectedProps } from 'react-typestyle-preset';
 import { InputSheet } from 'react-typestyle';
 
-import { ComponentType, ReactElement, ReactNode } from 'react';
+import { ComponentType, ReactNode } from 'react';
 
- declare module 'react'{
+export enum DragItem {
+    PIECE = 'UIPiece'
+}
+
+export const DragItems = [ DragItem.PIECE ]
+
+declare module 'react' {
 
     type Provider<T> = ComponentType<{
         value: T;
@@ -14,10 +20,12 @@ import { ComponentType, ReactElement, ReactNode } from 'react';
         children: (value: T) => ReactNode;
         unstable_observedBits?: number;
     }>;
+
     interface Context<T> {
         Provider: Provider<T>;
         Consumer: Consumer<T>;
     }
+
     function createContext<T>(defaultValue?: T, calculateChangedBits?: (prev: T, next: T) => number): Context<T>;
 
 
@@ -1896,3 +1904,4 @@ export interface AntColors {
     'gold-10': string
 
 }
+

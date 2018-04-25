@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { Col, Layout, Row } from 'antd';
 import { Hot } from 'decorators';
 import UIBoard from '@/game/UIBoard';
-import { Color, Direction, Game, HumanPlayer } from '@/game/logic';
+import { Color, Direction, Game, HumanPlayer } from 'game';
 import { style } from 'typestyle';
 
 
@@ -40,9 +40,9 @@ export default class GameView extends Component<GameViewProps, {}> {
                 <Layout>
                     <Content>
                         <Row type="flex" justify="start">
-                            <Col span={6}/>
-                            <Col span={12}><UIBoard game={this.game}/></Col>
-                            <Col span={6}/>
+                            <Col xs={24} md={6}/>
+                            <Col xs={24} md={12}><UIBoard game={this.game}/></Col>
+                            <Col xs={24} md={6}/>
                         </Row>
 
                     </Content>

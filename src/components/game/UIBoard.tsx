@@ -4,11 +4,10 @@ import { DNDContext, Hot } from 'decorators';
 import { classes, style, types } from 'typestyle'
 import HTML5Backend from 'react-dnd-html5-backend';
 import UITile from '@/game/UITile';
-// import { black, white } from 'csx';
-import { Game, Tile } from '@/game/logic';
+import { Game, Tile } from 'game';
 import UIPiece from '@/game/UIPiece';
 
-const log = require('debug')('components:checkers:UIBoard')
+const log = require('debug')('components:game:UIBoard')
 
 export interface BoardProps {
     height?: number
@@ -18,7 +17,6 @@ export interface BoardProps {
 
 interface State {
 }
-
 
 /**
  * Board component
@@ -36,7 +34,7 @@ export default class UIBoard extends Component<BoardProps, State> {
     componentWillMount() {
         log('componentWillMount', this.props)
         this.props.game.on('update', () => {
-            log('update', {me:this})
+            log('update', { me: this })
             this.forceUpdate()
         });
     }
@@ -65,8 +63,8 @@ export default class UIBoard extends Component<BoardProps, State> {
 
     renderTile(tile: Tile) {
         const { game } = this.props
-        const wh        = (100 / game.board.size) + '%'
-        let className   = style({
+        const wh       = (100 / game.board.size) + '%'
+        let className  = style({
             width     : wh,
             height    : wh,
             background:
