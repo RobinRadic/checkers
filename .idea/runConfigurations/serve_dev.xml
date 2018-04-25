@@ -1,8 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="serve:dev" type="NodeJSConfigurationType" factoryName="Node.js" application-parameters="serve:dev" path-to-node="$USER_HOME$/.nvm/versions/node/v9.8.0/bin/node" node-parameters=" --nolazy -r ts-node/register --inspect" path-to-js-file="node_modules/.bin/gulp" working-dir="$PROJECT_DIR$">
-    <EXTENSION ID="com.jetbrains.nodejs.run.NodeJSProfilingRunConfigurationExtension">
-      <profiling v8-profiler-path="$PROJECT_DIR$/node_modules/v8-profiler" />
-    </EXTENSION>
-    <method />
-  </configuration>
-</component>

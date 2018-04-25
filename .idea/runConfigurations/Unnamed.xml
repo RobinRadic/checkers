@@ -1,5 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Unnamed" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="$USER_HOME$/.nvm/versions/node/v8.4.0/bin/node" path-to-js-file="test-mixins.ts" node-parameters=" --nolazy -r ts-node/register --inspect" working-dir="$PROJECT_DIR$">
-    <method />
-  </configuration>
-</component>

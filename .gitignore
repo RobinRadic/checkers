@@ -24,4 +24,5 @@ yarn-error.log*
 /antd
 /react-component
 /.idea/workspace.xml
-/semantic
+/semantic.idea
+.idea

@@ -1,8 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="task.semantic" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="$USER_HOME$/.nvm/versions/node/v9.8.0/bin/node" node-parameters=" --nolazy -r ts-node/register --inspect" path-to-js-file="build/task.semantic.ts" working-dir="$PROJECT_DIR$">
-    <EXTENSION ID="com.jetbrains.nodejs.run.NodeJSProfilingRunConfigurationExtension">
-      <profiling v8-profiler-path="$PROJECT_DIR$/node_modules/v8-profiler" />
-    </EXTENSION>
-    <method />
-  </configuration>
-</component>
