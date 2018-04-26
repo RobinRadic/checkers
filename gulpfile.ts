@@ -2,7 +2,6 @@
 import * as gulp from 'gulp'
 import { GulpTasks } from '@radic/build-tools/gulp';
 import { output } from '@radic/build-tools/output';
-// import {output} from '@radic/build-tools/output';
 import { Gulpclass, Task } from 'gulpclass';
 import build from './build/task.build'
 import serve from './build/task.serve'
@@ -12,7 +11,7 @@ import * as browserSync from 'browser-sync';
 import * as compression from 'compression';
 import { getPort } from './build/utils';
 import * as yargs from 'yargs';
-import * as globule from 'globule'
+const globule= require('globule')
 import { join, resolve } from 'path';
 import { copyFileSync } from 'fs';
 import * as Mocha from 'mocha'
@@ -38,7 +37,7 @@ class AppTasks extends GulpTasks {
         let mocha = new Mocha(<MochaConstructorOptions> {
             ui: 'mocha-typescript'
         })
-        mocha.addFile(resolve(__dirname, 'test', 'test.test.ts'));
+        globule.find(resolve(__dirname, 'test', '**/*.test.ts')).forEach(filePath => mocha.addFile(filePath))
         mocha.reporter(Mocha.reporters.Spec, {})
         mocha.reporter(Mocha.reporters.Progress, {})
         mocha.run((fails) => {

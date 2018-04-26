@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { Button, Col, Layout, Row, Select } from 'antd';
 import { CSSModules, Hot } from 'decorators';
 import UIBoard from '@/game/UIBoard';
-import { Color, CPUPlayer, Direction, Game, HumanPlayer, IPlayer, RemotePlayer } from 'game';
+import { Color, CPUPlayer, Direction, AbstractGame, HumanPlayer, IPlayer, RemotePlayer } from 'game';
 import styles from './views.module.scss'
 import { action, observable } from 'mobx';
 
@@ -27,11 +27,11 @@ export default class GameView extends Component<GameViewProps & CSSModules.Injec
 
     @action setMode(mode: GameMode) { this.mode = mode }
 
-    @observable game: Game;
+    @observable game: AbstractGame;
 
     @action
     protected startGame() {
-        this.game = new Game();
+        this.game = new AbstractGame();
         let player1: IPlayer;
         let player2: IPlayer;
 

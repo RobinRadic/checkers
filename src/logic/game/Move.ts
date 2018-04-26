@@ -17,7 +17,21 @@ export class Move {
 
     public get direction(): Direction { return this.from.row > this.to.row ? Direction.NORTH : Direction.SOUTH}
 
-    public getDistance(): number {
+    public get isBackwards(): boolean { return this.direction !== this.player.direction}
+
+    public get isSideways(): boolean { return this.from.row === this.to.row && this.from.col !== this.to.col}
+
+    public get isDiagonal(): boolean {
+        let size   = this.player.game.board.size;
+        let first  = this.direction === Direction.SOUTH ? 'from' : 'to'
+        let second = this.direction === Direction.SOUTH ? 'to' : 'from'
+        let rows   = (size - this[ this.direction === Direction.SOUTH ? 'from' : 'to' ].row) - (size - this[ this.direction === Direction.SOUTH ? 'to' : 'from' ].row)
+        let cols   = (size - this[ this.from.col >= this.to.col ? 'to' : 'from' ].col) - (size - this[ this.from.col >= this.to.col ? 'from' : 'to' ].col)
+
+        return rows === cols;
+    }
+
+    public get distance(): number {
         // https://www.mathopenref.com/coorddist.html
         let row  = this.from.row - this.to.row;
         let col  = this.from.col - this.to.col;
@@ -26,18 +40,19 @@ export class Move {
         return dist;
     }
 
-    public getColDistance(): number {
+    public get colDistance(): number {
         let first = this.from.col >= this.to.col ? 'from' : 'to'
         return this[ first ].col - this[ first === 'to' ? 'from' : 'to' ].col;
     }
 
-    public getRowDistance(): number {
+    public get rowDistance(): number {
         let first = this.from.row >= this.to.row ? 'from' : 'to'
         return this[ first ].row - this[ first === 'to' ? 'from' : 'to' ].row;
     }
 
-    public isJumpingTile(): boolean {
-        if ( this.getDistance() !== 2 || this.getRowDistance() !== 2 || this.getColDistance() !== 2 ) {
+    public get isJumpingPiece(): boolean {
+        // @todo add logic to figure out isJumpingPiece when moving a distance greater then 1 (kinged piece)
+        if ( this.distance !== 2 || this.rowDistance !== 2 || this.colDistance !== 2 ) {
             return false;
         }
         let tile = this.getJumpedTile();
@@ -49,11 +64,11 @@ export class Move {
     }
 
     public getJumpedTile(): Tile {
-        if ( this.getDistance() === 1 ) {
+        if ( this.distance === 1 ) {
             return;
         }
 
-        if ( this.getDistance() === 2 ) {
+        if ( this.distance === 2 ) {
             let drow   = this.to.row - this.from.row;
             let dcol   = this.to.col - this.from.col;
             let jumped = {

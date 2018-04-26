@@ -1,6 +1,6 @@
 import { Color, Direction, IPlayer } from './types';
 import { Tile } from './Tile';
-import { Game } from './Game'
+import { AbstractGame } from './AbstractGame'
 import { Move } from './Move'
 import { Piece } from './Piece'
 const log = require('debug')('game:AbstractPlayer')
@@ -8,11 +8,11 @@ const log = require('debug')('game:AbstractPlayer')
 export abstract class AbstractPlayer implements IPlayer {
     private _pieces: Array<Piece> = [];
 
-    constructor(protected _game: Game, protected _color: Color, protected _direction: Direction) {}
+    constructor(protected _game: AbstractGame, protected _color: Color, protected _direction: Direction) {}
 
     public get pieces(): Array<Piece> { return this._pieces; }
 
-    public get game(): Game { return this._game; }
+    public get game(): AbstractGame { return this._game; }
 
     public get color(): Color { return this._color; }
 

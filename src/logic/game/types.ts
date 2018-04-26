@@ -1,7 +1,7 @@
 // noinspection TypeScriptPreferShortImport
 import { Tile } from './Tile'
 import { Piece } from './Piece'
-import { Game } from './Game'
+import { AbstractGame } from './AbstractGame'
 
 export type IPiece = Piece | null;
 
@@ -9,7 +9,7 @@ export interface IPlayer {
     color: Color
     direction: Direction
     pieces: Array<Piece>
-    game: Game
+    game: AbstractGame
 
     addPiece(tile: Tile): Piece;
 

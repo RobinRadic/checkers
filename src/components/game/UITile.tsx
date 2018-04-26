@@ -57,7 +57,7 @@ export default class UITile extends Component<UITileSquareProps> {
             let move = item.piece.createMove(tile);
             let game = item.piece.game
             isLegal  = game.isLegalMove(move)
-            log('isOver', { item, move, isLegal, distance: move.getDistance() })
+            log('isOver', { item, move, isLegal, distance: move.distance })
         }
 
         return connectDropTarget(

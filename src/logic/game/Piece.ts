@@ -1,6 +1,6 @@
 import { IPiece, IPlayer } from './types';
 import { Tile } from './Tile';
-import { Game } from './Game'
+import { AbstractGame } from './AbstractGame'
 import { Move } from './Move'
 
 const log = require('debug')('game:Piece')
@@ -14,7 +14,7 @@ export class Piece {
 
     public get player(): IPlayer { return this._player; }
 
-    public get game(): Game { return this._player.game; }
+    public get game(): AbstractGame { return this._player.game; }
 
     public get tile(): Tile { return this._tile; }
 
@@ -33,12 +33,6 @@ export class Piece {
     }
 
     public moveTo(to: Tile) { this.game.executeMove(this.createMove(to)); }
-
-    // public move(to: Tile) {
-    //     let move = this.createMove(to);
-    //     log('move', { move, to })
-    //     this.game.executeMove(move);
-    // }
 
     public setTile(tile: Tile) { this._tile = tile; }
 

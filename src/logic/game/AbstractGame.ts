@@ -6,7 +6,8 @@ import { Board } from './Board'
 
 const log = require('debug')('game:Game')
 
-export class Game extends EventEmitter2 {
+// export abstract class Game extends EventEmitter2 {
+export class AbstractGame extends EventEmitter2 {
     started: boolean        = false;
     ended: boolean          = false;
     players: Array<IPlayer> = [];
@@ -60,7 +61,7 @@ export class Game extends EventEmitter2 {
         if ( ! this.isLegalMove(move) ) {
             throw new Error('Not a valid move')
         }
-        if ( move.isJumpingTile() ) {
+        if ( move.isJumpingPiece ) {
             let tile  = move.getJumpedTile();
             let piece = tile.occupant
             piece.tile.setOccupant(null);
@@ -85,54 +86,47 @@ export class Game extends EventEmitter2 {
         let piece  = move.piece;
         let player = piece.player;
 
-        // move.isBackwards()
         // rule: cannot move backwards unless kinged
-        if ( move.direction !== player.direction && ! piece.kinged ) {
-            log('isLegalMove', 'move.direction !== player.direction && ! piece.kinged')
+        if ( ! piece.kinged && move.isBackwards ) {
+            log('isLegalMove', 'move.isBackwards && ! piece.kinged')
 
             return false;
         }
 
-        // move.isSideways()
         // rule: cannot move sideways
-        if ( move.from.row === move.to.row ) {
-            log('isLegalMove', 'move.from.row === move.to.row')
+        if ( move.isSideways ) {
+            log('isLegalMove', 'isSideways')
             return false;
         }
 
-        // move.isDiagonal()
         // makes sure its a diagonal move if going further away then 1 tile (kinged pieces)
-        if ( move.getDistance() > 1 && ! move.isJumpingTile() ) {
-            let size   = player.game.board.size;
-            let first  = move.direction === Direction.SOUTH ? 'from' : 'to'
-            let second = move.direction === Direction.SOUTH ? 'to' : 'from'
-            let rows   = (size - move[ move.direction === Direction.SOUTH ? 'from' : 'to' ].row) - (size - move[ move.direction === Direction.SOUTH ? 'to' : 'from' ].row)
-            let cols   = (size - move[ move.from.col >= move.to.col ? 'to' : 'from' ].col) - (size - move[ move.from.col >= move.to.col ? 'from' : 'to' ].col)
-
-            log('isLegalMove', 'diagonal check', 'rows !== cols:', rows !== cols, { rows, cols })
-            if ( rows !== cols ) {
-                return false;
-            }
+        if ( move.distance > 1 && ! move.isJumpingPiece && ! move.isDiagonal ) {
+            log('isLegalMove', 'diagonal check', 'rows !== cols:')
+            return false;
         }
 
         // rule: cannot move forward (NORTH/SOUTH) more then 1 tile (prevents kinged pieces to move more then 1)
-        if ( move.from.col === move.to.col && move.getDistance() > 1 ) {
-            log('isLegalMove', 'move.from.col === move.to.col && move.getDistance() > 1')
+        if ( move.from.col === move.to.col && move.distance > 1 ) {
+            log('isLegalMove', 'move.from.col === move.to.col && move.distance > 1')
             return false;
         }
 
         if ( ! move.to.isOccupied ) {
             log('isLegalMove', '! move.to.isOccupied')
-            if ( move.getDistance() === 1 ) {
-                log('isLegalMove', 'move.getDistance() === 1 ')
+            if ( move.distance === 1 ) {
+                log('isLegalMove', 'move.distance === 1 ')
                 return true;
             }
-            if ( move.isJumpingTile() ) {
-                // only allow jumping sideways. if sideways move is legal
-                log('isLegalMove', 'move.from.col !== move.to.col', move.from.col !== move.to.col)
-                return move.from.col !== move.to.col;
+
+            // allow jumping diagonal.
+            if ( move.isJumpingPiece && move.isDiagonal ) {
+                log('isLegalMove', 'move.isDiagonal', move.isDiagonal, 'old:', move.from.col !== move.to.col)
+                return true;
+
             }
-            if ( (piece.kinged && move.isJumpingTile() === false)  ) {
+            // allow kinged piece to move multiple tiles when not jumping
+            // @todo add logic to figure out isJumpingPiece when moving a distance greater then 1
+            if ( (piece.kinged && move.isJumpingPiece === false) ) {
                 log('isLegalMove', 'piece.kinged && move.isJumpingTile() === false')
                 return true;
             }
@@ -140,7 +134,7 @@ export class Game extends EventEmitter2 {
 
         log('isLegalMove', 'return', {
             move,
-            isJumpingTile: move.isJumpingTile()
+            isJumpingTile: move.isJumpingPiece
         })
         return false;
     }

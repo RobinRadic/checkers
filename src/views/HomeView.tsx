@@ -32,7 +32,7 @@ export default class HomeView extends Component<HomeViewProps & CSSModules.Injec
         log('render', { classNames })
         return (
             <Layout>
-                <Content className={classNames.content}>
+                <Content >
                     Hello!
                 </Content>
             </Layout>
