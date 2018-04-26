@@ -15,12 +15,37 @@ import * as yargs from 'yargs';
 import * as globule from 'globule'
 import { join, resolve } from 'path';
 import { copyFileSync } from 'fs';
+import * as Mocha from 'mocha'
 
 let argv = yargs.parse(process.argv.slice(2));
+
+interface MochaConstructorOptions {
+    grep?: RegExp;
+    ui?: string;
+    reporter?: string | ReporterConstructor;
+    timeout?: number;
+    reporterOptions?: any;
+    slow?: number;
+    bail?: boolean;
+}
 
 @Gulpclass(gulp)
 class AppTasks extends GulpTasks {
     protected options = [ 'async_start', 'profile', 'monitor' ];
+
+    @Task('test') test() {
+        let d     = this.defer();
+        let mocha = new Mocha(<MochaConstructorOptions> {
+            ui: 'mocha-typescript'
+        })
+        mocha.addFile(resolve(__dirname, 'test', 'test.test.ts'));
+        mocha.reporter(Mocha.reporters.Spec, {})
+        mocha.reporter(Mocha.reporters.Progress, {})
+        mocha.run((fails) => {
+            d.resolve();
+        })
+        return d.promise;
+    }
 
     @Task('semantic:types') semanticTypes() {
         const basePath = resolve(__dirname, 'node_modules/semantic-ui-react/dist')

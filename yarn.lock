@@ -1142,6 +1142,12 @@
   dependencies:
     "@types/react-dnd" "*"
 
+"@types/react-dnd-test-backend@^2.5.0":
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/@types/react-dnd-test-backend/-/react-dnd-test-backend-2.5.0.tgz#ba0ececab7a842d85274e14cddf6e3f12ea238f7"
+  dependencies:
+    "@types/react-dnd" "*"
+
 "@types/react-dnd-touch-backend@^0.3.3":
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/@types/react-dnd-touch-backend/-/react-dnd-touch-backend-0.3.3.tgz#f764fe2862bec762c084de8223f48d3861f08e13"
@@ -14422,6 +14428,12 @@ react-dnd-html5-backend@^2.6.0:
   resolved "https://registry.yarnpkg.com/react-dnd-html5-backend/-/react-dnd-html5-backend-2.6.0.tgz#590cd1cca78441bb274edd571fef4c0b16ddcf8e"
   dependencies:
     lodash "^4.2.0"
+
+react-dnd-test-backend@^2.6.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/react-dnd-test-backend/-/react-dnd-test-backend-2.6.0.tgz#3d78af6805e0730a019c6b7ef9c81eb6f9b3b9e3"
+  dependencies:
+    dnd-core "^2.6.0"
 
 react-dnd-touch-backend@^0.3.21:
   version "0.3.21"

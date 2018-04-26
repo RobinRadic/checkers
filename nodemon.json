@@ -4,6 +4,7 @@
         ".git",
         "node_modules/**/node_modules",
         "node_modules",
+        "test",
         ".examples",
         ".idea",
         ".old",

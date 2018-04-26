@@ -63,9 +63,5 @@ export class Move {
             log('getJumpedTile', { jumped, drow, dcol, me: this })
             return this.piece.game.board.getTile(jumped.row, jumped.col);
         }
-
-
     }
-
-
 }
