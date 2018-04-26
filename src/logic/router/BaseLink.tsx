@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { inject, Symbols } from 'ioc';
-import { RouterStore } from 'stores';
+import { inject, Symbols } from '#/ioc';
+import { RouterStore } from '#/stores';
 import { Route } from 'router5/create-router';
 import autobind from 'autobind-decorator';
 

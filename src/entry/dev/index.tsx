@@ -12,8 +12,8 @@ import * as React from 'react';
 import { Component } from 'react';
 import * as ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import { container, containerModule, Symbols } from 'ioc';
-import { makeRouter } from 'router';
+import { container, containerModule, Symbols } from '#/ioc';
+import { makeRouter } from '#/router';
 import App from '../../App';
 import { routes } from '../../routes';
 

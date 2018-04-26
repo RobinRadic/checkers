@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Route, routeNode, RouteView } from 'router';
-import { inject, Symbols } from 'ioc';
+import { Route, routeNode, RouteView } from '#/router';
+import { inject, Symbols } from '#/ioc';
 import { State } from 'router5/create-router';
 import { hot } from 'react-hot-loader';
 

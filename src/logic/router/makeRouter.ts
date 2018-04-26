@@ -2,7 +2,7 @@ import browserPlugin, { BrowserPluginOptions } from 'router5/plugins/browser';
 import { Options } from 'router5/create-router';
 import createRouter from 'router5';
 import { Route } from './types';
-import { RouterStore } from 'stores';
+import { RouterStore } from '#/stores';
 import mobxPlugin from './mobxPlugin';
 
 

@@ -4,7 +4,7 @@ import { DNDContext, Hot } from 'decorators';
 import { classes, style, types } from 'typestyle'
 import HTML5Backend from 'react-dnd-html5-backend';
 import UITile from '@/game/UITile';
-import { AbstractGame, Tile } from 'game';
+import { AbstractGame, Tile } from '#/game';
 import UIPiece from '@/game/UIPiece';
 
 const log = require('debug')('components:game:UIBoard')

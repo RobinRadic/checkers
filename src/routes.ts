@@ -1,4 +1,4 @@
-import { Route } from 'router';
+import { Route } from '#/router';
 import { Loading } from '@/Loading';
 import Loadable from 'react-loadable'
 import {} from 'router5'

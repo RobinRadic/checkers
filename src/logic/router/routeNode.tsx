@@ -1,8 +1,8 @@
 import { Component, createElement } from 'react';
 import { getDisplayName } from './utils';
 import { autorun, computed, toJS } from 'mobx';
-import { inject, Symbols } from 'ioc';
-import { RouterStore } from 'stores';
+import { inject, Symbols } from '#/ioc';
+import { RouterStore } from '#/stores';
 import { observer } from 'mobx-react';
 
 const log = require('debug')('router:node')

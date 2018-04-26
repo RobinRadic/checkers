@@ -18,17 +18,18 @@ import 'colors'
 import * as stylus from 'stylus';
 import { HandleCSSLoader } from './utils/css-utils';
 import * as merge from 'webpack-merge'
-import { ANALYZE, Checker, ForkTsChecker } from './utils/plugins'
+import { ANALYZE, ForkTsChecker } from './utils/plugins'
 import { readFileSync } from 'fs';
 
 const tsImportFactory = require('ts-import-plugin');
 
-export const projectRoot       = path.resolve(__dirname, '../');
+export const projectRoot = path.resolve(__dirname, '../');
+
 export function resolve(...p) {
     return path.resolve(__dirname, '..', ...p)
 }
 
-export default ():Configuration => {
+export default (): Configuration => {
     let env                 = _env()
     let SharedCache         = {};
     let base: Configuration = <Configuration> {}
@@ -71,7 +72,7 @@ export default ():Configuration => {
         minimize   : env.prod,
         extract    : env.prod
     });
-    const styleLoaders = new HandleCSSLoader({
+    const styleLoaders       = new HandleCSSLoader({
         styleLoader: 'style-loader',
         sourceMap  : env.config.cssSourceMap,
         postcss    : {
@@ -117,22 +118,22 @@ export default ():Configuration => {
                 // handleLoader.styl(),
                 // handleLoader.stylus(),
 
-                styleLoaders.css([/\.css$/, /\.module\.css$/]),
-                styleLoaders.less([/\.less$/, /\.module\.less$/], {
+                styleLoaders.css([ /\.css$/, /\.module\.css$/ ]),
+                styleLoaders.less([ /\.less$/, /\.module\.less$/ ], {
                     javascriptEnabled: true,
                     modifyVars       : env.prod ? themeVariables : {}
                 }),
-                styleLoaders.sass([/\.sass$/, /\.module\.sass$/]),
-                styleLoaders.scss([/\.scss$/, /\.module\.scss$/]),
-                styleLoaders.styl([/\.styl$/, /\.module\.styl$/]),
-                styleLoaders.stylus([/\.stylus$/, /\.module\.stylus$/]),
+                styleLoaders.sass([ /\.sass$/, /\.module\.sass$/ ]),
+                styleLoaders.scss([ /\.scss$/, /\.module\.scss$/ ]),
+                styleLoaders.styl([ /\.styl$/, /\.module\.styl$/ ]),
+                styleLoaders.stylus([ /\.stylus$/, /\.module\.stylus$/ ]),
 
                 styleModuleLoaders.css(/\.module\.css$/),
                 styleModuleLoaders.less(/\.module\.less$/),
                 styleModuleLoaders.sass(/\.module\.sass$/),
                 styleModuleLoaders.scss(/\.module\.scss$/),
                 styleModuleLoaders.styl(/\.module\.styl$/),
-                styleModuleLoaders.stylus(/\.module\.stylus$/),
+                styleModuleLoaders.stylus(/\.module\.stylus$/)
             ]
         },
         output       : {
@@ -153,20 +154,21 @@ export default ():Configuration => {
             ],
             alias     : {
                 src: resolve('src'),
+                '@': resolve('src/components'),
 
-                game   : resolve('src/logic/game/index.ts'),
-                ioc   : resolve('src/logic/ioc/index.ts'),
-                router: resolve('src/logic/router/index.tsx'),
-                stores: resolve('src/logic/stores/index.ts'),
+                // '#': resolve('src/logic'),
+                '#/game': resolve('src/logic/game/index.ts'),
+                '#/ioc': resolve('src/logic/ioc/index.ts'),
+                '#/router': resolve('src/logic/router/index.tsx'),
+                '#/stores': resolve('src/logic/stores/index.ts'),
 
-                decorators: resolve('src/decorators.tsx'),
-                interfaces: resolve('src/interfaces.ts'),
-                utils     : resolve('src/utils'),
+                // decorators: resolve('src/decorators.tsx'),
+                // interfaces: resolve('src/interfaces.ts'),
+                // utils     : resolve('src/utils'),
 
-                layouts: resolve('src/layouts'),
-                assets : resolve('src/assets'),
-                views  : resolve('src/views'),
-                '@'    : resolve('src/components'),
+                // layouts: resolve('src/layouts'),
+                // assets : resolve('src/assets'),
+                // views  : resolve('src/views'),
 
                 '../../theme.config$': resolve('src/semantic/theme.config')
                 // interfaces: resolve('src/core/interfaces.ts'),
@@ -182,7 +184,7 @@ export default ():Configuration => {
         },
         resolveLoader: {
             modules: [ resolve('node_modules'), resolve('src') ],
-            alias: {
+            alias  : {
                 'scss-vars': 'sass-vars-to-js-loader'
             }
             // alias  : {

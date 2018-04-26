@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { DNDTarget, Hot } from 'decorators';
 import { ConnectDropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from 'react-dnd'
-import { Piece, Tile } from 'game';
+import { Piece, Tile } from '#/game';
 import { DragItem, DragItems } from 'interfaces';
 
 const log = require('debug')('components:game:UITile')

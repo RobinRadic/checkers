@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { getDisplayName, ifNot } from './utils';
-import { inject, Symbols } from 'ioc';
-import { RouterStore } from 'stores';
+import { inject, Symbols } from '#/ioc';
+import { RouterStore } from '#/stores';
 
 /**
  * It creates and returns a new wrapper ComponentWithRoute around BaseComponent

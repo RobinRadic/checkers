@@ -38,6 +38,9 @@ declare module 'react' {
 }
 
 
+
+export type GameMode = 'free' | 'singleplayer' | 'multiplayer'
+
 export interface ApiCacheConfig {
     enabled?: boolean
     expires?: number | null

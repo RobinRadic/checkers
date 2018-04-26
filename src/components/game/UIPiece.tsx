@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { DNDSource, Hot } from 'decorators';
 import { classes, style } from 'typestyle'
 import { ConnectDragSource, DragSourceCollector, DragSourceConnector, DragSourceMonitor, DragSourceSpec } from 'react-dnd';
-import { Color, Piece } from 'game';
+import { Color, Piece } from '#/game';
 import { DragItem } from 'interfaces';
 
 

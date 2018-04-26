@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { inject, Symbols } from 'ioc';
-import { BreakpointStore, RouterStore } from 'stores';
+import { inject, Symbols } from '#/ioc';
+import { BreakpointStore, RouterStore } from '#/stores';
 import { CSSModules, Hot } from 'decorators';
 import { Affix, Layout } from 'antd';
-import { Link, RouteView } from 'router';
+import { Link, RouteView } from '#/router';
 import { Icon } from '@/Icon';
 import styles from './views.module.scss'
 import { routes } from 'src/routes';

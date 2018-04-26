@@ -5,7 +5,7 @@ import styles from './dev.module.scss'
 import { CSSModules, Hot } from 'decorators';
 import { IconDirections, Menu, MenuItem, SubMenu } from '@/tmenu/Menu'
 import TestMenuView from '@/tmenu/TestMenuView';
-import { Link } from 'router';
+import { Link } from '#/router';
 import { style } from 'typestyle';
 import { observable, runInAction } from 'mobx';
 

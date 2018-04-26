@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Link, Route, routeNode, RouteView, State } from 'router';
-import { inject, Symbols } from 'ioc';
+import { Link, Route, routeNode, RouteView, State } from '#/router';
+import { inject, Symbols } from '#/ioc';
 import { CSSModules, Hot } from 'decorators';
 import { Affix, Layout } from 'antd';
 import { Icon } from '@/Icon';

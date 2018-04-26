@@ -23,24 +23,14 @@
         ],
         "baseUrl": ".",
         "paths": {
-            "src/*": ["./*"],
-            "stores": ["./logic/stores/index.ts"],
-            "game": ["./logic/game/index.ts"],
-            "ioc": ["./logic/ioc/index.ts"],
-            "router": ["./logic/router/index.tsx"],
-
-            "interfaces": ["./interfaces.ts"],
-            "decorators": ["./decorators.tsx"],
-
-            "assets/*": ["./assets/*"],
-            "layouts/*": ["./layouts/*"],
-            "views/*": ["./views/*"],
-            "react": ["./types/react/index.d.ts"],
-
+            "*": ["./*"],
+            "#/*": ["./logic/*"],
             "@": ["./components"],
             "@/*": ["./components/*"],
-            "utils/*": ["./utils/*"],
+
+            "react": ["./types/react/index.d.ts"],
             "react-slot": ["./types/react-slot.d.ts"],
+            "laravel-echo": ["./types/echo.d.ts"],
             "react-broadcast": ["./types/react-broadcast.d.ts"],
             "semantic-ui-react/dist/es/*": ["semantic-ui-react/dist/commonjs/*"],
 

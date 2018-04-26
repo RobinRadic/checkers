@@ -1,16 +1,18 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
-import { inject, Symbols } from 'ioc';
-import { RouterStore } from 'stores';
+import { inject, Symbols } from '#/ioc';
 import { injectable } from 'inversify';
+
+import { RouterStore } from '#/stores';
 import RootView from 'views/RootView';
-import { hot } from 'react-hot-loader';
+import { Hot } from 'decorators';
 
-window['React'] = React;
+window[ 'React' ] = React;
 
+@Hot(module)
 @observer
 @injectable()
-export class App extends React.Component {
+export default class App extends React.Component {
     @inject(Symbols.RouterStore) routerStore: RouterStore
 
     render() {
@@ -21,8 +23,3 @@ export class App extends React.Component {
         )
     }
 }
-export default hot(module)(App)
-
-// export const App = hot(module)(Apps)
-
-// export const App = AppComponent
