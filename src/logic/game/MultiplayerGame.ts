@@ -10,26 +10,33 @@ const log = require('debug')('game:MultiplayerGame')
 
 export class MultiplayerGame extends AbstractGame {
 
-    // @inject(Symbols.Echo) echo: typeof Echo
-
+    get echo(): typeof Echo { return container.get<any>(Symbols.Echo) }
 
     constructor() {
         super();
-        let echo = container.get<any>(Symbols.Echo)
-        // let pusher = container.get<Pusher>(Symbols.Pusher)
-        log('echo', echo)
-        // log('pusher',pusher)
-        // window['pusher'] = pusher;
-        //
-        // pusher.subscribe('game')
-        //     .bind('App.Event.MovedPiece', (context: any, data: any) => {
-        //         log('pusher App.Event.MovedPiece', {context,data})
-        //     })
+        log('echo', this.echo)
 
-        echo
+        this.echo
             .channel('game')
-            .listen('MovedPiece', (e) => {
-                log('MovedPiece', e)
+            .listen('GameCreated', (e) => {
+                log('GameCreated', e);
+                this.emit('created', e);
+            })
+            .listen('PieceMoved', (e) => {
+                log('PieceMoved', e);
+                this.emit('piece.moved', e);
+            })
+            .listen('MessageSend', (e) => {
+                log('MessageSend', e);
+                this.emit('message.send', e);
+            })
+            .listen('PlayerJoined', (e) => {
+                log('PlayerJoined', e)
+                this.emit('player.joined', e);
+            })
+            .listen('GameStarted', (e) => {
+                log('GameStarted', e);
+                this.emit('started', e);
             });
 
         this.on('move', (move: Move) => {

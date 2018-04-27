@@ -16,11 +16,9 @@ Route::get('/', function () {
 });
 
 
-Route::group([ 'prefix' => 'chat'], function () {
-    Route::get('messages', 'ChatController@fetchMessages');
-    Route::post('messages', 'ChatController@sendMessage');
-});
-
 Route::group([ 'prefix' => 'game'], function () {
     Route::post('move', 'GameController@movePiece');
+    Route::post('create', 'GameController@createGame');
+    Route::get('messages', 'GameController@fetchMessages');
+    Route::post('messages', 'GameController@sendMessage');
 });

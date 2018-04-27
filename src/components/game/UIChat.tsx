@@ -50,17 +50,11 @@ export default class UIChat extends Component<UIChatProps & CSSModules.InjectedC
         super(props, context);
         log(this)
         window[ 'chat' ] = this;
-        this.echo.channel('chat')
-            .listen('MessageSent', (e) => {
-                log('MessageSent', e)
-                runInAction(() => this.messages.push(e.message));
-            });
-
         this.getMessages();
     }
 
     getMessages() {
-        Axios.get('http://checkers.local/chat/messages').then(response => {
+        Axios.get('http://checkers.local/game/messages').then(response => {
             log('getMessages', response.data)
             runInAction(() => this.messages = response.data)
         })
@@ -68,7 +62,7 @@ export default class UIChat extends Component<UIChatProps & CSSModules.InjectedC
     }
 
     addMessage(message: string) {
-        Axios.post('http://checkers.local/chat/messages', { name: this.store.playerName, message }).then(res => {
+        Axios.post('http://checkers.local/game/messages', { name: this.store.playerName, message }).then(res => {
             log(res.data)
         })
     }
