@@ -8,8 +8,11 @@ const log = require('debug')('store:game')
 @injectable()
 export class GameStore<T extends AbstractGame=AbstractGame> {
 
-    @observable game: T        = null
-    @observable mode: GameMode = null
+    @observable game: T            = null
+    @observable playerName: string = null
+    @observable mode: GameMode     = null
+
+    @action setPlayerName(name: string) { this.playerName = name; }
 
     @action setMode(mode: GameMode) {
         if ( this.game !== null ) {
@@ -34,8 +37,7 @@ export class GameStore<T extends AbstractGame=AbstractGame> {
         this.game = game;
     }
 
-    @action
-    startGame() {
+    @action startGame() {
         let player1: IPlayer;
         let player2: IPlayer;
 
@@ -46,13 +48,18 @@ export class GameStore<T extends AbstractGame=AbstractGame> {
         if ( this.mode === 'free' ) {
             player1 = new HumanPlayer(this.game, Color.BLACK, Direction.SOUTH);
             player2 = new HumanPlayer(this.game, Color.WHITE, Direction.NORTH);
+            player2.setName('player2')
         } else if ( this.mode === 'singleplayer' ) {
             player1 = new HumanPlayer(this.game, Color.BLACK, Direction.SOUTH);
             player2 = new CPUPlayer(this.game, Color.WHITE, Direction.NORTH);
+            player2.setName('cpu')
         } else if ( this.mode === 'multiplayer' ) {
             player1 = new HumanPlayer(this.game, Color.BLACK, Direction.SOUTH);
-            player2 = new RemotePlayer(this.game, Color.BLACK, Direction.SOUTH);
+            player2 = new RemotePlayer(this.game, Color.WHITE, Direction.NORTH);
+            player2.setName('remote')
         }
+        player1.setName(this.playerName);
+
         log('startGame', { game: this.game, me: this })
         this.game.addPlayers(player1, player2);
         this.game.startGame();

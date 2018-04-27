@@ -6,11 +6,16 @@
     "type": "project",
     "require": {
         "php": "^7.1.3",
+        "barryvdh/laravel-ide-helper": "^2.4",
         "fideloper/proxy": "^4.0",
+        "laradic/idea": "dev-master@dev",
+        "laradic/service-provider": "dev-master@dev",
+        "laradic/support": "dev-master@dev",
         "laravel/framework": "5.6.*",
         "laravel/passport": "~6.0",
         "laravel/tinker": "^1.0",
         "predis/predis": "1.1.*",
+        "pusher/pusher-http-laravel": "^4.1",
         "pusher/pusher-php-server": "^3.0"
     },
     "require-dev": {
@@ -20,6 +25,9 @@
         "nunomaduro/collision": "^2.0",
         "phpunit/phpunit": "^7.0"
     },
+    "repositories": [
+        {"type": "path", "url": "../../../php/projects/laradic/workbench/laradic/*"}
+    ],
     "autoload": {
         "classmap": [
             "database/seeds",
@@ -50,6 +58,17 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover"
+        ],
+        "cleandb": [
+            "rm database/database.sqlite &> /dev/null",
+            "touch database/database.sqlite"
+        ],
+        "reinstall": [
+            "rm -rf vendor/ composer.lock",
+            "@composer clear-cache",
+            "@composer install",
+            "@cleandb",
+            "@php artisan migrate"
         ]
     },
     "config": {

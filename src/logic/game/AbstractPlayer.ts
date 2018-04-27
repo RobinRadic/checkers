@@ -7,8 +7,11 @@ const log = require('debug')('game:AbstractPlayer')
 
 export abstract class AbstractPlayer implements IPlayer {
     private _pieces: Array<Piece> = [];
+    private _name: string = 'otherPlayer'
 
     constructor(protected _game: AbstractGame, protected _color: Color, protected _direction: Direction) {}
+
+    public get name(): string {        return this._name;    }
 
     public get pieces(): Array<Piece> { return this._pieces; }
 
@@ -17,6 +20,8 @@ export abstract class AbstractPlayer implements IPlayer {
     public get color(): Color { return this._color; }
 
     public get direction(): Direction { return this._direction; }
+
+    public setName(name: string) { this._name = name }
 
     public addPiece(tile: Tile): Piece {
         if ( tile.isOccupied ) {

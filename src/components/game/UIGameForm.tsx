@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { Button, Select } from 'antd';
+import { Button, Input, Select } from 'antd';
 import { CSSModules, Hot } from 'decorators';
 import { classes, style, types } from 'typestyle'
 import styles from 'styles/styles.module.scss'
 import { inject, Symbols } from '#/ioc';
 import { AbstractGame } from '#/game';
 import { GameStore } from '#/stores';
-import { computed } from 'mobx';
+import { action, computed, observable } from 'mobx';
+import { Step, Transition } from 'semantic-ui-react'
+import 'semantic-ui-less/definitions/modules/transition.less'
+import 'semantic-ui-less/definitions/elements/step.less'
+import { GameMode } from 'interfaces';
 
 const log        = require('debug')('components:UIGameForm')
 const { Option } = Select;
@@ -26,8 +30,8 @@ export interface UIGameFormProps {
 @CSSModules(styles)
 @observer
 export default class UIGameForm extends Component<UIGameFormProps & CSSModules.InjectedCSSModuleProps> {
-    static displayName: string           = 'UIGameForm'
-    static defaultProps: UIGameFormProps = {}
+    static displayName: string                    = 'UIGameForm'
+    static defaultProps: Partial<UIGameFormProps> = {}
     @inject(Symbols.GameStore) store: GameStore
 
     @computed get game(): AbstractGame { return this.store.game }
@@ -53,53 +57,94 @@ export default class UIGameForm extends Component<UIGameFormProps & CSSModules.I
         this.game.endGame()
         this.game.startGame()
     }
-    onStartClick   = (e) => {
-        log('onStartClick', e, { me: this });
-        this.store.createGame();
-        this.store.startGame();
-    }
-    onSelectChange = (value) => {
-        log('onSelectChange', value, { me: this });
-        this.store.setMode(value);
-    }
+
+    @observable showFields: string[] = [ 'mode' ]
+    @observable step: string         = 'mode'
+
+    @action setStep(step: string) {this.step = step}
 
     render() {
-        // const {} = this.props;
+        let transitionDuration = 500;
         return (
             <div className={this.getClassName()}>
+                <Step.Group widths={3} size='mini'>
+                    <Step active={this.step === 'mode'} disabled={this.step !== 'mode'}>
+                        <Step.Content> <Step.Title>Game Mode</Step.Title> </Step.Content>
+                    </Step>
+                    <Step active={this.step === 'name'} disabled={this.step !== 'name'}>
+                        <Step.Content> <Step.Title>Player Name</Step.Title> </Step.Content>
+                    </Step>
+                    <Step active={this.step === 'confirm'} disabled>
+                        <Step.Content> <Step.Title>Confirm</Step.Title> </Step.Content>
+                    </Step>
+                </Step.Group>
+                <Transition visible={this.step === 'mode'} animation="slide down" duration={transitionDuration}>
+                    <div>
+                        <Select
+                            placeholder="Select a game mode"
+                            style={{ width: '70%' }}
+                            value={this.store.mode}
+                            onChange={(v: GameMode) => this.store.setMode(v)}
+                        >
+                            <Option value="free">Free Play</Option>
+                            <Option value="singleplayer">vs CPU (singleplayer)</Option>
+                            <Option value="multiplayer">vs Human (multiplayer)</Option>
+                        </Select>
+                        <Button
+                            type="primary"
+                            style={{ marginLeft: 10 }}
+                            onClick={() => {
+                                this.setStep(null)
+                                setTimeout(() => this.setStep('name'), transitionDuration);
+                            }}
+                        >Next</Button>
+                    </div>
+                </Transition>
+                <Transition visible={this.step === 'name'} animation="slide down" duration={transitionDuration}>
+                    <div>
+                        <Input
+                            placeholder="Your name"
+                            style={{ width: '70%' }}
+                            value={this.store.playerName}
+                            onChange={(v) => this.store.setPlayerName(v.target.value)}
+                        />
+                        <Button
+                            type="primary"
+                            style={{ marginLeft: 10 }}
+                            onClick={() => {
+                                this.setStep(null)
+                                setTimeout(() => this.setStep('confirm'), transitionDuration);
+                            }}
+                        >Next</Button>
+                    </div>
+                </Transition>
+                <Transition visible={this.step === 'confirm'} animation="slide down" duration={transitionDuration}>
+                    <div>
+                        <Button type="primary" onClick={() => {
+                            this.store.createGame();
+                            this.store.startGame();
+                        }}>Start Game</Button>
 
-                <Select
-                    style={{ marginBottom: 10, width: '100%' }}
-                    placeholder="Select a game mode"
-                    onChange={this.onSelectChange}
-                >
-                    <Option value="free">Free Play</Option>
-                    <Option value="singleplayer">vs CPU (singleplayer)</Option>
-                    <Option value="multiplayer">vs Human (multiplayer)</Option>
-                </Select>
-                <Button
-                    style={{ marginBottom: 10 }}
-                    disabled={this.store.mode === null}
-                    type="primary"
-                    onClick={this.onStartClick}
-                >Start</Button>
+                        <Button type="primary" onClick={() => {
+                            this.store.setMode(null)
+                            this.store.setPlayerName(null)
+                            this.setStep('mode');
+                        }}>Reset</Button>
+                    </div>
+                </Transition>
 
-
-                {DEV ? <Button
-                    style={{ marginBottom: 10 }}
-                    disabled={this.store.mode === null}
-                    type="primary"
-                    onClick={this.onRestartClick}
-                >Restart</Button> : null}
-                {DEV ? <Button
-                    style={{ marginBottom: 10 }}
-                    disabled={! this.game}
-                    type="primary"
-                    onClick={this.onDevClick}
-                >DEV</Button> : null}
             </div>
         )
     }
 
     getClassName() { return classes(style(this.props.style), this.props.className); }
 }
+
+// export default hot(module)(Form.create({
+//     onFieldsChange(props, fields: Array<any>) {
+//         log('onFieldsChange', { props, fields })
+//     },
+//     onValuesChange(props, values: any) {
+//         log('onValuesChange', { props, values })
+//     }
+// })(UIGameForm))

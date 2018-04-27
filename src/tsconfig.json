@@ -28,9 +28,9 @@
             "@": ["./components"],
             "@/*": ["./components/*"],
 
+            "antd": ["antd/lib/index.d.ts"],
             "react": ["./types/react/index.d.ts"],
             "react-slot": ["./types/react-slot.d.ts"],
-            "laravel-echo": ["./types/echo.d.ts"],
             "react-broadcast": ["./types/react-broadcast.d.ts"],
             "semantic-ui-react/dist/es/*": ["semantic-ui-react/dist/commonjs/*"],
 

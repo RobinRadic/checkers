@@ -9888,6 +9888,10 @@ klaw@^1.0.0:
   optionalDependencies:
     graceful-fs "^4.1.9"
 
+laravel-echo@^1.3.5:
+  version "1.3.5"
+  resolved "https://registry.yarnpkg.com/laravel-echo/-/laravel-echo-1.3.5.tgz#6e92a7c380f9393918c162886a9ca1c4e5926159"
+
 last-call-webpack-plugin@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/last-call-webpack-plugin/-/last-call-webpack-plugin-3.0.0.tgz#9742df0e10e3cf46e5c0381c2de90d3a7a2d7555"

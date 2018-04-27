@@ -6,16 +6,15 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import UITile from '@/game/UITile';
 import { AbstractGame, Tile } from '#/game';
 import UIPiece from '@/game/UIPiece';
+import { inject, Symbols } from '#/ioc';
+import { GameStore } from '#/stores';
+import { computed } from 'mobx';
 
 const log = require('debug')('components:game:UIBoard')
 
 export interface BoardProps {
     height?: number
     width?: number
-    game: AbstractGame
-}
-
-interface State {
 }
 
 /**
@@ -24,27 +23,33 @@ interface State {
 @Hot(module)
 @DNDContext(HTML5Backend)
 @observer
-export default class UIBoard extends Component<BoardProps, State> {
+export default class UIBoard extends Component<BoardProps> {
     static displayName: string               = 'UIBoard'
     static defaultProps: Partial<BoardProps> = {
         height: 500,
         width : 500
     }
+    @inject(Symbols.GameStore) store: GameStore
+
+    @computed get game(): AbstractGame { return this.store.game }
 
     componentWillMount() {
         log('componentWillMount', this.props)
-        this.props.game.on('update', () => {
+        this.game.on('update', () => {
             log('update', { me: this })
             this.forceUpdate()
         });
     }
 
     render() {
-        const { height, width, game } = this.props;
-        const totalTiles              = game.board.getNumTiles();
-        const tiles                   = [];
+        if(!this.store.game || !this.store.game.started) {
+            return null
+        }
+        const { height, width } = this.props;
+        const totalTiles        = this.game.board.getNumTiles();
+        const tiles             = [];
 
-        game.board.getAllTiles().forEach(tile => {
+        this.game.board.getAllTiles().forEach(tile => {
             tiles.push(this.renderTile(tile))
         })
 
@@ -62,9 +67,8 @@ export default class UIBoard extends Component<BoardProps, State> {
     }
 
     renderTile(tile: Tile) {
-        const { game } = this.props
-        const wh       = (100 / game.board.size) + '%'
-        let className  = style({
+        const wh      = (100 / this.game.board.size) + '%'
+        let className = style({
             width     : wh,
             height    : wh,
             background:

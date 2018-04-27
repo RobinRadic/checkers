@@ -1,3 +1,3 @@
-import { AbstractPlayer } from './AbstractPlayer';
+import { HumanPlayer } from './HumanPlayer';
 
-export class RemotePlayer extends AbstractPlayer {}
+export class RemotePlayer extends HumanPlayer {}

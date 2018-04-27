@@ -24,6 +24,7 @@ export class AbstractGame extends EventEmitter2 {
             maxListeners     : 100,
             verboseMemoryLeak: DEV
         })
+        if(DEV) window['game'] = this;
     }
 
     public addPlayers(...players: IPlayer[]) { this.players.push(...players) }

@@ -4,7 +4,8 @@
 
 /* Step */
 @background: transparent linear-gradient(transparent, rgba(0, 0, 0, 0.07));
-@verticalPadding: 1em;
+@verticalPadding: 0.5em;
+@horizontalPadding: 1em;
 
 @arrowDisplay: none;
 @lastArrowDisplay: none;
@@ -24,3 +25,8 @@
 @arrowRightOffset: 50%;
 @arrowBorderColor: rgba(0, 0, 0, 0.2);
 @arrowBorderWidth: 0px 0px @borderWidth @borderWidth;
+
+@titleFontSize: 1em;
+@titleColor: @darkTextColor;
+@activeColor: @darkTextColor;
+

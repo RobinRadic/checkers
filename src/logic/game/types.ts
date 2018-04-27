@@ -10,6 +10,9 @@ export interface IPlayer {
     direction: Direction
     pieces: Array<Piece>
     game: AbstractGame
+    name: string
+
+    setName(name: string);
 
     addPiece(tile: Tile): Piece;
 

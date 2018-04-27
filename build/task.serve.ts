@@ -174,11 +174,11 @@ const start = <T extends ServerCallbackOptions | ProdServerCallbackOptions | Dev
             port,
             headers           : { 'Access-Control-Allow-Origin': '*' },
             compress          : true,
-            https             : {
-                spdy: {
-                    protocols: ["h2"]
-                }
-            },
+            // https             : {
+            //     spdy: {
+            //         protocols: ["h2"]
+            //     }
+            // },
             stats             : {
                 excludeAssets: assetName => assetName.includes('brace') || /\.(ttf|woff|png|eot|jpg|woff2)$/.test(assetName),
                 colors       : true
