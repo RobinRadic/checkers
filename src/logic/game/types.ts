@@ -30,3 +30,21 @@ export enum Direction {
     NORTH = 0,
     SOUTH = 2
 }
+
+
+export interface PieceMovedEventLocation {
+    row: number
+    col: number
+}
+
+export interface PieceMovedEvent {
+    from: PieceMovedEventLocation
+    to: PieceMovedEventLocation
+}
+
+export interface MessageSendEvent {
+    id: number
+    created_at: string
+    message: string
+    sender_name: string
+}

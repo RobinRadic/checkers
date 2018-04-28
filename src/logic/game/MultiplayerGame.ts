@@ -20,24 +20,28 @@ export class MultiplayerGame extends AbstractGame {
             .channel('game')
             .listen('GameCreated', (e) => {
                 log('GameCreated', e);
-                this.emit('created', e);
+                this.emit('game:created', e);
             })
-            .listen('PieceMoved', (e) => {
-                log('PieceMoved', e);
-                this.emit('piece.moved', e);
+            .listen('GamePieceMoved', (e) => {
+                log('GamePieceMoved', e);
+                this.emit('game:piece:moved', e);
             })
             .listen('MessageSend', (e) => {
                 log('MessageSend', e);
-                this.emit('message.send', e);
+                this.emit('message:send', e);
             })
             .listen('PlayerJoined', (e) => {
                 log('PlayerJoined', e)
-                this.emit('player.joined', e);
+                this.emit('player:joined', e);
             })
             .listen('GameStarted', (e) => {
                 log('GameStarted', e);
-                this.emit('started', e);
+                this.emit('game:started', e);
             });
+
+        this.onAny((event, ...args) => {
+            log('event', {event, args});
+        })
 
         this.on('move', (move: Move) => {
             log('on Move', move);

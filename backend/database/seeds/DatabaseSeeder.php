@@ -11,6 +11,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+//        $this->call(PlayersTableSeeder::class);
+//        $this->call(RoomsTableSeeder::class);
+//        $this->call(MessagesTableSeeder::class);
+
+//        $room       = new \App\Room();
+//        $room->name = 'my room';
+
+        $room   = \App\Room::create([ 'name' => 'my room' ]);
+        $playerJim = \App\Player::create([ 'name' => 'Jim', 'ip' => '0.0.0.0', 'room_id' => $room->id ]);
+
     }
 }

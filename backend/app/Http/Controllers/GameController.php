@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\GameCreated;
 use App\Events\GameStarted;
 use App\Events\MessageSent;
-use App\Events\PieceMoved;
+use App\Events\GamePieceMoved;
 use App\Events\PlayerJoined;
 use App\Message;
 use Illuminate\Http\Request;
@@ -67,7 +67,7 @@ class GameController extends Controller
         $from = $request->input('from');
         $to   = $request->input('to');
 
-        broadcast(new PieceMoved($from, $to))->toOthers();
+        broadcast(new GamePieceMoved($from, $to))->toOthers();
 
         return response()->json([ 'status' => 'Move send!' ]);
     }
