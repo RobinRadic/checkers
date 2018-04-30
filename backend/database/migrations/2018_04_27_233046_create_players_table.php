@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreatePlayersTable extends Migration
 {
@@ -15,10 +15,13 @@ class CreatePlayersTable extends Migration
     {
         Schema::create('players', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
             $table->string('ip');
             $table->integer('room_id')->nullable()->default(null);
-            $table->timestamps();
+            $table->unsignedInteger('user_id');
+            $table
+                ->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
         });
     }
 

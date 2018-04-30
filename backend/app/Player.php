@@ -8,14 +8,14 @@ use Illuminate\Database\Eloquent\Model;
  * App\Player
  *
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Message[] $messages
- * @property-read \App\Room $room
+ * @property-read \App\Room                                               $room
  * @mixin \Eloquent
- * @property int $id
- * @property string $name
- * @property string $ip
- * @property int|null $room_id
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
+ * @property int                                                          $id
+ * @property string                                                       $name
+ * @property string                                                       $ip
+ * @property int|null                                                     $room_id
+ * @property \Carbon\Carbon|null                                          $created_at
+ * @property \Carbon\Carbon|null                                          $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Player whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Player whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Player whereIp($value)
@@ -25,9 +25,22 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Player extends Model
 {
-    protected $fillable = [ 'name', 'ip', 'room_id' ];
+    public $timestamps = false;
 
-    protected $visible = [ 'id', 'created_at', 'name', 'room_id' ];
+    protected $fillable = [ 'ip', 'room_id', 'user_id' ];
+
+    protected $visible = [
+        'id',
+        'room_id',
+
+        'room',
+        'messages',
+    ];
+
+    protected $casts = [
+        'room_id' => 'integer',
+        'user_id' => 'integer',
+    ];
 
     public function room()
     {
@@ -37,5 +50,10 @@ class Player extends Model
     public function messages()
     {
         return $this->hasMany(Message::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

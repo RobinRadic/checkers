@@ -15,5 +15,5 @@ export interface Dependencies extends BaseDependencies {
 export interface Route extends BaseRoute {
     component?: any
     children?: Route[]
-    forward?: (state: State) => { name: string, params?: any }
+    forward?: (state: State) => Promise<{ name: string, params?: any }> | {name:string,params?:any}
 }

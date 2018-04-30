@@ -37,7 +37,7 @@ interface BaseLinkProps {
  *    routeParams={routeParamsObj}    // optional, default {}
  *    routeOptions={routeOptionsObj}  // optional, default {}
  */
-class BaseLink extends Component<BaseLinkProps> {
+export class BaseLink extends Component<BaseLinkProps> {
     static displayName = 'BaseLink';
 
     static defaultProps = {
@@ -95,4 +95,3 @@ class BaseLink extends Component<BaseLinkProps> {
     }
 }
 
-export default BaseLink;

@@ -7,7 +7,6 @@ import { RouterStore } from '#/stores';
 import RootView from 'views/RootView';
 import { Hot } from 'decorators';
 
-window[ 'React' ] = React;
 
 @Hot(module)
 @observer

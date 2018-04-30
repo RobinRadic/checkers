@@ -11,7 +11,7 @@ import { RouterStore } from '#/stores';
  * @param storeName - the mobx-router5 store instance name. Default 'routerStore'
  * @returns {ComponentWithRoute}
  */
-function withRoute() {
+export function withRoute() {
     return (BaseComponent) => {
         @observer
         class ComponentWithRoute extends Component<any> {
@@ -83,5 +83,3 @@ function withRoute() {
         return ComponentWithRoute as any;
     }
 }
-
-export default withRoute;

@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Message
  *
- * @property-read \App\Player $player
- * @property-read \App\Room $room
+ * @property-read \App\Player    $player
+ * @property-read \App\Room      $room
  * @mixin \Eloquent
- * @property int $id
- * @property string $message
- * @property int $player_id
- * @property int $room_id
+ * @property int                 $id
+ * @property string              $message
+ * @property int                 $player_id
+ * @property int                 $room_id
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Message whereCreatedAt($value)
@@ -27,11 +27,24 @@ class Message extends Model
 {
     protected $fillable = [ 'message', 'player_id', 'room_id' ];
 
-    protected $visible = [ 'id', 'created_at', 'message', 'player_id', 'room_id' ];
+    protected $visible = [
+        'id',
+        'created_at',
+        'message',
+        'room_id',
+
+        'player',
+        'room'
+    ];
+
+    protected $casts = [
+        'player_id' => 'integer',
+        'room_id'   => 'integer',
+    ];
 
     public function player()
     {
-        return $this->hasOne(Player::class);
+        return $this->belongsTo(Player::class);
     }
 
     public function room()

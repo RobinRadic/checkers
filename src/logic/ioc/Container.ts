@@ -60,5 +60,4 @@ export class Container extends BaseContainer {
     public constant<T>(id: ServiceIdentifier, val: T) {
         return this.bind(id).toConstantValue(val);
     }
-
 }

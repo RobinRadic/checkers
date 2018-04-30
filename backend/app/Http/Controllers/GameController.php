@@ -3,25 +3,48 @@
 namespace App\Http\Controllers;
 
 use App\Events\GameCreated;
+use App\Events\GameEnded;
+use App\Events\GamePieceMoved;
 use App\Events\GameStarted;
 use App\Events\MessageSent;
-use App\Events\GamePieceMoved;
+use App\Events\PlayerAcceptedGameStart;
 use App\Events\PlayerJoined;
+use App\Events\PlayerRequestedGameStart;
 use App\Message;
 use Illuminate\Http\Request;
 
 class GameController extends Controller
 {
-    public function createGame(Request $request)
+    public function create(Request $request)
     {
         $remotePlayer = $request->input('remotePlayer');
         broadcast(new GameCreated($remotePlayer))->toOthers();
     }
 
-    public function startGame(Request $request)
+    public function start(Request $request)
     {
 //        $remotePlayer = $request->input('remotePlayer');
         broadcast(new GameStarted())->toOthers();
+    }
+
+    public function switchTurn(Request $request)
+    {
+
+    }
+
+    public function end(Request $request)
+    {
+        broadcast(new GameEnded())->toOthers();
+    }
+
+    public function playerRequestStart(Request $request)
+    {
+        broadcast(new PlayerRequestedGameStart())->toOthers();
+    }
+
+    public function playerAcceptStart(Request $request)
+    {
+        broadcast(new PlayerAcceptedGameStart())->toOthers();
     }
 
     public function playerJoin(Request $request)
@@ -32,7 +55,7 @@ class GameController extends Controller
 
     public function fetchMessages()
     {
-        $messages = Message::all(['created_at', 'id','message','sender_name'])
+        $messages = Message::all([ 'created_at', 'id', 'message', 'sender_name' ])
             ->reverse()
             ->slice(0, 10)
             ->reverse()

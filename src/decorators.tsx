@@ -4,12 +4,15 @@ import hoistNonReactStatics from 'hoist-non-react-statics';
 import ReactCSSModules from 'react-css-modules';
 import { guid } from 'inversify';
 import { DndOptions, DragDropContext, DragSource, DragSourceCollector, DragSourceSpec, DropTarget, DropTargetCollector, DropTargetSpec, Identifier } from 'react-dnd';
+import FormClass, { FormCreateOption } from 'antd/es/form';
+
 
 const log = require('debug')('decorators')
 
 
 export function CSSModules(style) {
     return (target) => {
+        // log('@CSSModules', {style,target})
         let decorator = ReactCSSModules(style, { allowMultiple: true, handleNotFoundStyleName: 'log' })
         return hoistNonReactStatics(decorator(target), target) as any;
     }
@@ -21,6 +24,11 @@ export declare module CSSModules {
     }
 }
 
+export function form(FormObj: typeof FormClass, opts: FormCreateOption<any> = {}) {
+    return (target) => {
+        return FormObj.create(opts)(target) as any
+    }
+}
 
 export function WithStyles() {
     return (target) => {
@@ -32,7 +40,10 @@ export function Hot<T>(module: any) {
     return (source) => {
         if ( DEV ) {
             let decorator = require('react-hot-loader').hot(module);
-            return hoistNonReactStatics(source, decorator(source))
+            let wrapped = decorator(source);
+            // let hoisted = hoistNonReactStatics(source, decorator(source))
+            // log('@Hot',module.id, {wrapped, module,source})
+            return wrapped;
         }
         return source;
     }

@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateRoomsTable extends Migration
 {
@@ -16,9 +16,10 @@ class CreateRoomsTable extends Migration
         Schema::create('rooms', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-//            $table->boolean('is_full')->default(false);
+            $table->unsignedInteger('black_player_id')->nullable()->default(null);
+            $table->unsignedInteger('white_player_id')->nullable()->default(null);
             $table->boolean('is_started')->default(false);
-            $table->timestamps();
+            $table->unique([ 'name' ]);
         });
     }
 

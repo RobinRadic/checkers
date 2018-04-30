@@ -15,7 +15,6 @@ import { AppContainer } from 'react-hot-loader';
 import { container, containerModule, Symbols } from '#/ioc';
 import { makeRouter } from '#/router';
 import App from '../../App';
-import { routes } from '../../routes';
 
 
 const log = require('debug')('_new')
@@ -23,8 +22,6 @@ require('../../.less/antd.less');
 require('../../styles/stylesheet.scss');
 const dev = window[ 'dev' ] = new class {
     Symbols = Symbols
-
-    get menus() { return container.get(Symbols.MenuManager) }
 
     get store() { return container.get(Symbols.RootStore) }
 
@@ -43,7 +40,6 @@ const render = (Component) => {
         document.getElementById('root')
     );
 };
-
 
 container.load(containerModule)
 

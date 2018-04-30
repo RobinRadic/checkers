@@ -27,11 +27,11 @@ export class GameStore<T extends AbstractGame=AbstractGame> {
             this.setMode('free');
         }
         if ( this.mode === 'free' ) {
-            game = new FreeplayerGame() as T;
+            game = new FreeplayerGame() as any;
         } else if ( this.mode === 'singleplayer' ) {
-            game = new SingleplayerGame() as T;
+            game = new SingleplayerGame() as any;
         } else if ( this.mode === 'multiplayer' ) {
-            game = new MultiplayerGame() as T;
+            game = new MultiplayerGame() as any;
         }
         log('createGame', { game })
         this.game = game;

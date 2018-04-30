@@ -7,7 +7,7 @@ import { observer } from 'mobx-react';
 
 const log = require('debug')('router:node')
 
-function routeNode(nodeName) { // route node Name, routerStore name
+export function routeNode(nodeName) { // route node Name, routerStore name
     return (RouteComponent) => { // component Name
 
         @observer
@@ -58,4 +58,4 @@ function routeNode(nodeName) { // route node Name, routerStore name
     };
 }
 
-export default routeNode;
+

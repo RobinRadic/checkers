@@ -4,8 +4,8 @@ import { Plugin, PluginFactory } from 'router5/core/plugins';
 
 const defaultOptions = {};
 
-function mobxPluginFactory(routerStore, options = defaultOptions):PluginFactory {
-  function mobxPlugin(router, dependencies) {
+export function mobxPlugin(routerStore, options = defaultOptions):PluginFactory {
+  function plugin(router, dependencies) {
     // NOTE: cross-referencing objects
     router.setDependency('routerStore', routerStore);
     routerStore.setRouter(router);
@@ -27,10 +27,7 @@ function mobxPluginFactory(routerStore, options = defaultOptions):PluginFactory 
     };
   }
 
-  mobxPlugin['pluginName'] = 'MOBX_PLUGIN';
+  plugin['pluginName'] = 'MOBX_PLUGIN';
 
-  return mobxPlugin as any;
+  return plugin as any;
 }
-
-export default mobxPluginFactory;
-

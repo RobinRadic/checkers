@@ -10,11 +10,11 @@
  * @returns {ComponentWithRoute}
  */
 import React, { Component } from 'react';
-import BaseLink from './BaseLink';
-import withRoute from './withRoute';
+import {BaseLink} from './BaseLink';
+import {withRoute} from './withRoute';
 import { getDisplayName } from './utils';
 
-function withLink() {
+export function withLink() {
     return (LinkWrapper) => {
         /***
          * HOC WithLink that wraps the LinkWrapper
@@ -34,7 +34,7 @@ function withLink() {
                 const { linkClassName, ...passThroughProps } = this.props;
                 return (
                     <LinkWrapper className={this.props.className}>
-                        <BaseLink {...passThroughProps} className={linkClassName}>
+                        <BaseLink {...passThroughProps as any} className={linkClassName}>
                             {passThroughProps.children}
                         </BaseLink>
                     </LinkWrapper>
@@ -48,4 +48,3 @@ function withLink() {
     }
 }
 
-export default withLink;

@@ -20,17 +20,33 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Room whereIsStarted($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Room whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Room whereUpdatedAt($value)
- * @property bool $is_started
- * @property-read bool $is_full
+ * @property bool                                                         $is_started
+ * @property-read bool                                                    $is_full
  */
 class Room extends Model
 {
-    protected $fillable = [ 'name', 'is_started' ];
+    public $timestamps = false;
 
-    protected $visible = [ 'id', 'created_at', 'name', 'is_started', 'is_full' ];
+    protected $fillable = [ 'name', 'is_started', 'black_player_id', 'white_player_id' ];
+
+    protected $visible = [
+        'id',
+        'created_at',
+        'name',
+        'is_started',
+        'is_full',
+
+        'black_player_id',
+        'white_player_id',
+
+        'players',
+        'messages',
+    ];
+
+    protected $appends = [ 'is_full' ];
 
     protected $casts = [
-        'is_full' => 'boolean',
+        'is_full'    => 'boolean',
         'is_started' => 'boolean',
     ];
 
@@ -44,6 +60,16 @@ class Room extends Model
         return $this->hasMany(Message::class);
     }
 
+    public function blackPlayer()
+    {
+        return $this->hasOne(Player::class, 'black_player_id');
+    }
+
+    public function whitePlayer()
+    {
+        return $this->hasOne(Player::class, 'white_player_id');
+    }
+
     /**
      * getIsFullAttribute method
      *
@@ -51,6 +77,6 @@ class Room extends Model
      */
     public function getIsFullAttribute()
     {
-        return $this->players->count() > 1;
+        return $this->attributes[ 'is_full' ] = $this->players->count() > 1;
     }
 }

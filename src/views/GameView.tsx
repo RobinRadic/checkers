@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { Layout } from 'antd';
 import { CSSModules, Hot } from 'decorators';
-import styles from './views.module.scss'
+import styles from 'styles/styles.module.scss'
 import UIGame from '@/game/UIGame';
+import { Layout } from 'antd';
 
 const { Header, Content, Sider, Footer } = Layout;
 const log                                = require('debug')('views:home')
@@ -20,7 +20,7 @@ export default class GameView extends Component<GameViewProps & CSSModules.Injec
     render() {
         return (
             <Layout>
-                <Content>
+                <Content styleName='content'>
                     <UIGame/>
                 </Content>
             </Layout>

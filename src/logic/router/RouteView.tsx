@@ -17,7 +17,7 @@ interface RouteViewProps {
  *
  * @return {object|null}
  */
-class RouteView extends Component<RouteViewProps> {
+export class RouteView extends Component<RouteViewProps> {
     static displayName = 'RouteView';
 
     render() {
@@ -39,7 +39,7 @@ interface RouteViewErrorBoundaryProps extends RouteViewProps {
     errorStyle?: React.CSSProperties
 }
 
-class RouteViewErrorBoundary extends Component<RouteViewErrorBoundaryProps> {
+export class RouteViewErrorBoundary extends Component<RouteViewErrorBoundaryProps> {
     static displayName = 'RootViewErrorBoundary'
     static defaultProps = {
         errorMessage: 'Something went wrong.',
@@ -72,8 +72,3 @@ class RouteViewErrorBoundary extends Component<RouteViewErrorBoundaryProps> {
         return <RouteView {...passThroughProps} />;
     }
 }
-
-
-export default RouteViewErrorBoundary;
-
-

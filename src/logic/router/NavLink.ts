@@ -1,9 +1,7 @@
-import withLink from './withLink';
-import BaseLink from './BaseLink';
+import {withLink} from './withLink';
+import {BaseLink} from './BaseLink';
 
 @withLink()
-class NavLink extends BaseLink {
+export class NavLink extends BaseLink {
     static displayName = 'NavLink'
 }
-
-export default NavLink;

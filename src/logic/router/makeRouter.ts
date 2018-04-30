@@ -3,7 +3,8 @@ import { Options } from 'router5/create-router';
 import createRouter from 'router5';
 import { Route } from './types';
 import { RouterStore } from '#/stores';
-import mobxPlugin from './mobxPlugin';
+import {mobxPlugin} from './mobxPlugin';
+import { forwardMiddleware } from './middleware';
 
 
 export interface MakeRouterOptions extends Partial<Options> {
@@ -28,6 +29,7 @@ export function makeRouter(routes: Route[], routerStore: RouterStore, routerOpti
     router
         .usePlugin(browserPlugin(browserPluginOptions))
         .usePlugin(mobxPlugin(routerStore))
+        .useMiddleware(forwardMiddleware(routes))
     // .usePlugin(loggerPlugin)
 
     return router;

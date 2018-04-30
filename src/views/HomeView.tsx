@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { InputSheet } from 'react-typestyle-preset';
 import { StyleProps } from 'interfaces';
-import { CSSModules, Hot, WithStyles } from 'decorators'
+import { CSSModules, Hot } from 'decorators'
 import { Layout } from 'antd';
-
-import styles from './views.module.scss'
+import styles from 'styles/styles.module.scss'
 
 const { Header, Content, Sider, Footer } = Layout;
 const log                                = require('debug')('views:home')
@@ -22,7 +21,7 @@ export default class HomeView extends Component<HomeViewProps & CSSModules.Injec
     static styles: InputSheet<HomeViewProps> = {
         content: {
             minHeight: 'calc(100vh - 130px)' // full height - header & footer height
-        },
+        }
     }
 
 
@@ -32,11 +31,12 @@ export default class HomeView extends Component<HomeViewProps & CSSModules.Injec
         log('render', { classNames })
         return (
             <Layout>
-                <Content >
-                    Hello!
+                <Content styleName='content'>
+                    Hello!!!!
                 </Content>
             </Layout>
         );
     }
 }
 
+// export default hot(module)(HomeView)

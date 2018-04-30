@@ -161,6 +161,7 @@ export default (): Configuration => {
                 '#/ioc': resolve('src/logic/ioc/index.ts'),
                 '#/router': resolve('src/logic/router/index.tsx'),
                 '#/stores': resolve('src/logic/stores/index.ts'),
+                '#/api': resolve('src/logic/api/index.ts'),
 
                 // decorators: resolve('src/decorators.tsx'),
                 // interfaces: resolve('src/interfaces.ts'),

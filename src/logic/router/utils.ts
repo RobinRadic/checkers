@@ -54,7 +54,7 @@ export function getComponent(route:Route|string, routeNodeName:string, routesCon
             // first found segment one level deeper than the routeNodeLevel
             return currentRoute.component;
           }
-          throw new Error('route segment does not have a component field');
+          // throw new Error('route segment does not have a component field');
         }
         else {
           if (currentRoute.children) {

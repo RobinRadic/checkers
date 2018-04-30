@@ -48,7 +48,7 @@ const start = <T extends ServerCallbackOptions | ProdServerCallbackOptions | Dev
     const contentPath = (...parts) => path.resolve(baseConfig.output.path, assetsPath, ...parts)
     const app         = express(),
           port        = env.config.port,
-          hostname    = '0.0.0.0',
+          hostname    = 'checkers.local',
           uri         = `http://${hostname}:${port}`;
 
     out(`{bold}Starting server {cyan}${uri}{/cyan} for ${env.name} preview...{reset}`)
