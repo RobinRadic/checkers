@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { action, observable, runInAction } from 'mobx';
 
 import { injectable } from 'inversify';
 import { container, Symbols } from '#/ioc';
@@ -16,8 +16,10 @@ export class UserStore {
     @action pullUser() {
         this.loadingUser = true;
         return this.api.Auth.current()
-            .then(action(({ user }) => { this.currentUser = user; }))
-            .then(action(() => { this.loadingUser = false; }))
+            .then(user => runInAction(() => {
+                this.currentUser = user;
+                this.loadingUser = false;
+            }))
     }
 
     @action forgetUser() {

@@ -22,6 +22,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Room whereUpdatedAt($value)
  * @property bool                                                         $is_started
  * @property-read bool                                                    $is_full
+ * @property int|null $black_player_id
+ * @property int|null $white_player_id
+ * @property-read \App\Player $blackPlayer
+ * @property-read \App\Player $whitePlayer
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Room whereBlackPlayerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Room whereWhitePlayerId($value)
  */
 class Room extends Model
 {

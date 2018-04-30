@@ -7,6 +7,7 @@ import GameNode from './views/nodes/GameNode';
 import { container, Symbols } from '#/ioc';
 import { AuthStore } from '#/stores';
 import { resolve } from './utils/promise';
+import CreateRoomView from './views/game/CreateRoomView';
 
 const log = require('debug')('routes')
 
@@ -36,7 +37,7 @@ export const routes: Route[] = [
     {
         name: 'game', path: '/game', forwardTo: 'game.join', component: GameNode, children: [
             { name: 'join', path: '/join', component: componentLoader(() => import(/* webpackChunkName: "views.game.join" */'views/GameView')) },
-            { name: 'create', path: '/create', component: componentLoader(() => import(/* webpackChunkName: "views.game.create" */'views/GameView')) },
+            { name: 'create', path: '/create', component: componentLoader(() => import(/* webpackChunkName: "views.game.create" */'views/game/CreateRoomView')) },
             { name: 'room', path: '/room', component: componentLoader(() => import(/* webpackChunkName: "views.game.room" */'views/GameView')) },
             { name: 'board', path: '/board', component: componentLoader(() => import(/* webpackChunkName: "views.game.board" */'views/GameView')) }
         ]

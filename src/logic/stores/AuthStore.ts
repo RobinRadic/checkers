@@ -65,11 +65,15 @@ export class AuthStore {
                 this.values.email,
                 this.values.password
             )
-            .then((user) => runInAction(() => {
-                this.inProgress = false;
-                this.token      = user.access_token;
-                log('login res action', { user, store: this })
-            }))
+            .then((user) => {
+                runInAction(() => {
+                    this.inProgress = false;
+                    this.token      = user.access_token;
+
+                    log('login res action', { user, store: this })
+                })
+                return this.user.pullUser();
+            })
             .catch((err: AxiosError) => {
                 runInAction(() => {
                     this.inProgress = false;

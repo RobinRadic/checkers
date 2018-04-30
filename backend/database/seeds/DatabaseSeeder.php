@@ -52,8 +52,9 @@ class DatabaseSeeder extends Seeder
         $name     = $name ?: $this->faker->name;
         $password = app()->make('hash.driver')->make('test');
         $user     = User::create(compact('email', 'name', 'password'));
-        $player   = Player::create([ 'ip' => '0.0.0.0', 'room_id' => $room, 'user_id' => $user->id ]);
-
+        if($room) {
+            $user->player->update([ 'room_id' => $room ]);
+        }
         return $user;
     }
 

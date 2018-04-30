@@ -92,7 +92,8 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json(auth()->user());
+        $user = User::whereKey(auth()->id())->with(['player'])->get()->toArray();
+        return response()->json($user);
     }
 
     /**

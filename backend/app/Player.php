@@ -22,6 +22,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Player whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Player whereRoomId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Player whereUpdatedAt($value)
+ * @property int $user_id
+ * @property-read \App\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Player whereUserId($value)
  */
 class Player extends Model
 {
