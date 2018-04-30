@@ -1,11 +1,12 @@
 import { ContainerModule } from 'inversify';
-import { AuthStore, BreakpointStore, GameStore, RootStore, RouterStore } from '#/stores';
+import { AuthStore, BreakpointStore, GameStore, RoomStore, RootStore, RouterStore } from '#/stores';
 import { container, Symbols } from './';
 import { routes } from 'routes';
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
-import { Api, AuthApi } from '#/api';
+import { Api, AuthApi, RoomApi } from '#/api';
 import config, { IConfig } from 'config'
+import { PSEvents } from 'PSEvents';
 
 // hot reload error (Ambiguous match found for serviceIdentifier) workaround _containerModule
 const _containerModule       = Symbol('containerModule')
@@ -21,7 +22,8 @@ export const containerModule = new ContainerModule(((bind, unbind, isBound, rebi
         bind(Symbols.AuthStore).to(AuthStore).inSingletonScope(),
         bind(Symbols.BreakpointStore).to(BreakpointStore).inSingletonScope(),
         bind(Symbols.RouterStore).to(RouterStore).inSingletonScope(),
-        bind(Symbols.GameStore).to(GameStore).inSingletonScope()
+        bind(Symbols.GameStore).to(GameStore).inSingletonScope(),
+        bind(Symbols.RoomStore).to(RoomStore).inSingletonScope()
     ];
 
     if ( DEV ) {
@@ -37,20 +39,27 @@ export const containerModule = new ContainerModule(((bind, unbind, isBound, rebi
         return api;
     })
     bind(Symbols.AuthApi).to(AuthApi).inSingletonScope()
+    bind(Symbols.RoomApi).to(RoomApi).inSingletonScope()
+
+    bind(Symbols.PSEvents).toDynamicValue(ctx => new PSEvents()).inSingletonScope();
 
     bind(Symbols.Pusher).toDynamicValue((ctx) => {
-        return new Pusher('52825a2e52a77953c55a', {
-            encrypted: true,
-            cluster  : 'eu'
+        const config                      = ctx.container.get<IConfig>(Symbols.config);
+        const { key, cluster, encrypted } = config.pusher
+        return new Pusher(key, {
+            cluster,
+            encrypted
         })
     });
     bind(Symbols.Echo).toDynamicValue((ctx) => {
-        const echo = new Echo({
+        const config                      = ctx.container.get<IConfig>(Symbols.config);
+        const { key, cluster, encrypted } = config.pusher
+        const echo                        = new Echo({
             broadcaster: 'pusher',
-            key        : '52825a2e52a77953c55a',
-            cluster    : 'eu',
-            encrypted  : true,
-            namespace  : 'App.Events'
+            namespace  : 'App.Events',
+            key,
+            cluster,
+            encrypted
         })
         return echo;
     })

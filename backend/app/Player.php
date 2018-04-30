@@ -22,8 +22,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Player whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Player whereRoomId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Player whereUpdatedAt($value)
- * @property int $user_id
- * @property-read \App\User $user
+ * @property int                                                          $user_id
+ * @property-read \App\User                                               $user
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Player whereUserId($value)
  */
 class Player extends Model
@@ -41,13 +41,14 @@ class Player extends Model
     ];
 
     protected $casts = [
+        'id'      => 'integer',
         'room_id' => 'integer',
         'user_id' => 'integer',
     ];
 
     public function room()
     {
-        return $this->hasOne(Room::class);
+        return $this->belongsTo(Room::class);
     }
 
     public function messages()
@@ -58,5 +59,32 @@ class Player extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function inRoom()
+    {
+        return $this->room_id !== null;
+    }
+
+    public function leaveRoom()
+    {
+        $this->room_id = null;
+        return $this;
+    }
+
+    /**
+     * joinRoom method
+     *
+     * @param int|Room $room
+     *
+     * @return $this
+     */
+    public function joinRoom($room)
+    {
+        if ($room instanceof Room) {
+            $room = $room->id;
+        }
+        $this->room_id = $room;
+        return $this;
     }
 }

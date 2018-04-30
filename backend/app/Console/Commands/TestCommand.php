@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Events\RoomCreated;
 use App\Room;
 use Illuminate\Console\Command;
 
@@ -37,19 +38,12 @@ class TestCommand extends Command
      * @return mixed
      */
     public function handle(){
-        $this->info(csrf_token());
+        $room = Room::get()->first();
+        broadcast(new RoomCreated($room));
     }
 
     public function handle2()
     {
-        /** @var Room $room */
-        $room = Room::with([ 'players', 'messages', 'messages.player' ])->whereKey(1)->first();
-        /** @var Room $room2 */
-        $room2 = Room::with([ 'players', 'messages', 'messages.player' ])->whereKey(2)->first();
-
-
-        $rooms = collect([ $room, $room2 ])->toArray();
-
-        $a = 'a';
+        broadcast(new RoomCreated(Room::get()->first()));
     }
 }

@@ -4,7 +4,7 @@ namespace App\Events;
 
 use App\Message;
 
-class MessageSent extends GameEvent
+class MessageSent extends Event
 {
     /** @var \App\Message */
     public $message;

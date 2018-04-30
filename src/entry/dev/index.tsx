@@ -15,6 +15,7 @@ import { AppContainer } from 'react-hot-loader';
 import { container, containerModule, Symbols } from '#/ioc';
 import { makeRouter } from '#/router';
 import App from '../../App';
+import { PSEvents } from '../../PSEvents';
 
 
 const log = require('debug')('_new')
@@ -30,6 +31,8 @@ const dev = window[ 'dev' ] = new class {
     get api() { return container.get(Symbols.Api) }
 
     get container() { return container}
+
+    get psevents() { return container.get<PSEvents>(Symbols.PSEvents)}
 }
 
 const render = (Component) => {

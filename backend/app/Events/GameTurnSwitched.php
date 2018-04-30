@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-class GameTurnSwitched extends GameEvent
+class GameTurnSwitched extends Event
 {
 
 }

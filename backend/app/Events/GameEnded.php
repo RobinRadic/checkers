@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-class GameEnded extends GameEvent
+class GameEnded extends Event
 {
 
 }

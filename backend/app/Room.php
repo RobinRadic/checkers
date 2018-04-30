@@ -52,6 +52,9 @@ class Room extends Model
     protected $appends = [ 'is_full' ];
 
     protected $casts = [
+        'id' => 'integer',
+        'black_player_id' => 'integer',
+        'white_player_id' => 'integer',
         'is_full'    => 'boolean',
         'is_started' => 'boolean',
     ];

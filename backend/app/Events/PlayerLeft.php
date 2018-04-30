@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-class PlayerJoined extends Event
+class PlayerLeft  extends Event
 {
     /** @var \App\Player */
     public $player;

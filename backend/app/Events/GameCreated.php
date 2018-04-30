@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-class GameCreated extends GameEvent
+class GameCreated extends Event
 {
     public $remotePlayer;
 

@@ -1,9 +1,12 @@
+
+
 export const Symbols = {
 
     config: Symbol('config'),
 
     Api    : Symbol('Api'),
     AuthApi: Symbol('AuthApi'),
+    RoomApi: Symbol('RoomApi'),
 
 
     AuthStore      : Symbol('AuthStore'),
@@ -20,6 +23,7 @@ export const Symbols = {
     DocumentPage: Symbol('DocumentPage'),
 
     Router: Symbol('Router'),
+    PSEvents: Symbol('PSEvents'),
     Echo  : Symbol('Echo'),
     Pusher: Symbol('Pusher')
 }

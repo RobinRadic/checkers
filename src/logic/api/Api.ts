@@ -4,6 +4,7 @@ import { AuthApi } from './AuthApi';
 import { container, Symbols } from '#/ioc';
 import { handleErrors } from './util';
 import { AuthStore } from '#/stores';
+import { RoomApi } from '#/api';
 
 const log = require('debug')('api')
 
@@ -53,6 +54,7 @@ export class Api {
     }
 
     get Auth(): AuthApi { return container.get<AuthApi>(Symbols.AuthApi) }
+    get Room(): RoomApi { return container.get<RoomApi>(Symbols.RoomApi) }
 
     request<T = any>(config: AxiosRequestConfig): AxiosPromise<T> {
         return this.client

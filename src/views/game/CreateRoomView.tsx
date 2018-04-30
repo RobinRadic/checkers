@@ -3,8 +3,8 @@ import { observer } from 'mobx-react';
 import { CSSModules, Hot } from 'decorators';
 import { classes, style, types } from 'typestyle'
 import styles from 'styles/styles.module.scss'
-
 import { Col, Layout, Row } from 'antd';
+import CreateRoomForm from '@/CreateRoomForm';
 
 const { Header, Content, Sider, Footer } = Layout;
 const log                                = require('debug')('views:game:CreateRoomView')
@@ -33,6 +33,7 @@ export default class CreateRoomView extends Component<LoginViewProps & CSSModule
                 <Content styleName='content'>
                     <Row>
                         <Col xs={{ span: 20, offset: 1 }} md={{ span: 6, offset: 9 }}>
+                            <CreateRoomForm/>
                         </Col>
                     </Row>
                 </Content>

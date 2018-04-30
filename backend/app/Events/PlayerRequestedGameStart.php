@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-class PlayerRequestedGameStart extends GameEvent
+class PlayerRequestedGameStart extends Event
 {
 
 }

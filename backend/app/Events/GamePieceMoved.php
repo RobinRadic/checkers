@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-class GamePieceMoved extends GameEvent
+class GamePieceMoved extends Event
 {
     /** @var array */
     public $from;

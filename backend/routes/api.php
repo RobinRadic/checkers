@@ -25,3 +25,15 @@ Route::group([ 'prefix' => 'auth' ], function ($router) {
     Route::post('refresh', 'AuthController@refresh');
     Route::get('me', 'AuthController@me');
 });
+
+
+Route::group([ 'prefix' => 'room', 'middleware' => ['auth:api'] ], function ($router) {
+
+    Route::get('/', 'RoomController@get');
+    Route::post('create', 'RoomController@create');
+    Route::post('join', 'RoomController@join');
+    Route::post('leave', 'RoomController@leave');
+    Route::get('messages', 'RoomController@fetchMessages');
+    Route::post('message', 'RoomController@sendMessage');
+
+});

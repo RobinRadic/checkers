@@ -1,13 +1,12 @@
-import React, { Component, FormEvent, FormEventHandler } from 'react';
+import React, { Component, FormEvent } from 'react';
 import { observer } from 'mobx-react';
 import { CSSModules, form, Hot } from 'decorators';
 import { classes, style, types } from 'typestyle'
 import styles from 'styles/styles.module.scss'
-import {message, Button, Checkbox, Form, Icon, Input } from 'antd';
+import { Button, Form, Input, message } from 'antd';
 import { FormComponentProps } from 'antd/lib/form/Form';
 import { inject, Symbols } from '#/ioc';
-import { AuthStore, RouterStore } from '#/stores';
-import { Link } from '#/router';
+import { RoomStore, RouterStore } from '#/stores';
 import config from '../config';
 
 
@@ -30,7 +29,7 @@ export interface CreateRoomFormProps {
 @CSSModules(styles)
 @observer
 export default class CreateRoomForm extends Component<CreateRoomFormProps & CSSModules.InjectedCSSModuleProps & Partial<FormComponentProps>> {
-    @inject(Symbols.AuthStore) authStore: AuthStore
+    @inject(Symbols.RoomStore) roomStore: RoomStore
     @inject(Symbols.RouterStore) routerStore: RouterStore
 
     static displayName: string               = 'CreateRoomForm'
@@ -38,17 +37,15 @@ export default class CreateRoomForm extends Component<CreateRoomFormProps & CSSM
         layout: 'vertical'
     }
 
-    handleSubmit = (e:FormEvent<any>) => {
+    handleSubmit = (e: FormEvent<any>) => {
         e.preventDefault();
         log('handleSubmit', { e })
         const form = this.props.form;
 
-        this.authStore.setEmail(form.getFieldValue('email'))
-        this.authStore.setPassword(form.getFieldValue('password'))
-        log('handleSubmit', { authStore: this.authStore })
+        log('handleSubmit', { roomStore: this.roomStore })
         const close = message.loading('Authenticating...')
-        this.authStore
-            .login()
+        this.roomStore
+            .createRoom(form.getFieldValue('name'))
             .then(() => {
                 close();
                 message.success('Authenticated', 1, () => {
@@ -57,7 +54,7 @@ export default class CreateRoomForm extends Component<CreateRoomFormProps & CSSM
             })
             .catch((err) => {
                 close();
-                message.error(this.authStore.errors, 3)
+                message.error(this.roomStore.errors, 3)
             })
     }
 
@@ -65,7 +62,7 @@ export default class CreateRoomForm extends Component<CreateRoomFormProps & CSSM
         const { layout }            = this.props;
         window[ 'form' ]            = this;
         const { getFieldDecorator } = this.props.form;
-        const validateStatus = this.authStore.inProgress ? 'validating':null
+        const validateStatus        = this.roomStore.inProgress ? 'validating' : null
 
         const formItemLayout = layout === 'horizontal' ? {
             labelCol  : {
@@ -90,11 +87,11 @@ export default class CreateRoomForm extends Component<CreateRoomFormProps & CSSM
                         <Input placeholder="Room Name"/>
                     )}
                 </Form.Item>
-                <Form.Item >
+                <Form.Item>
                     <Button
                         type="primary"
                         htmlType="submit"
-                        disabled={this.authStore.inProgress}
+                        disabled={this.roomStore.inProgress}
                     >
                         Create
                     </Button>

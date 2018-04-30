@@ -13,7 +13,6 @@
         "laradic/service-provider": "dev-master@dev",
         "laradic/support": "dev-master@dev",
         "laravel/framework": "5.6.*",
-        "laravel/passport": "~6.0",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "^1.0",
         "predis/predis": "1.1.*",
@@ -60,15 +59,25 @@
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover"
+            "@php artisan package:discover",
+            "php artisan clear-compiled"
+        ],
+        "clear": [
+            "@php artisan down",
+            "@php artisan clear-compiled",
+            "@php artisan cache:clear",
+            "@php artisan config:clear",
+            "@php artisan route:clear",
+            "@php artisan view:clear",
+            "@php artisan up"
         ],
         "cleandb": [
-            "rm database/database.sqlite &> /dev/null",
-            "touch database/database.sqlite"
+            "mysql -u root -e \"drop database pyradic; create database pyradic;\" --password=test"
         ],
         "redb": [
             "@cleandb",
-            "@php artisan migrate"
+            "@php artisan migrate",
+            "@php artisan db:seed"
         ],
         "reinstall": [
             "rm -rf vendor/ composer.lock",
