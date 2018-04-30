@@ -34,13 +34,13 @@ export class AuthStore {
     }
 
     @observable values = {
-        username: '',
+        name    : '',
         email   : '',
         password: ''
     };
 
-    @action setUsername(username) {
-        this.values.username = username;
+    @action setName(username) {
+        this.values.name = username;
     }
 
     @action setEmail(email) {
@@ -52,7 +52,7 @@ export class AuthStore {
     }
 
     @action reset() {
-        this.values.username = '';
+        this.values.name     = '';
         this.values.email    = '';
         this.values.password = '';
     }
@@ -73,22 +73,34 @@ export class AuthStore {
             .catch((err: AxiosError) => {
                 runInAction(() => {
                     this.inProgress = false;
-                    this.errors     = err
+                    this.errors     = err.response.statusText
                 })
                 log('login catch', { err, store: this })
                 return reject(err);
             })
     }
 
-    @action
-    async register() {
+    @action register() {
         this.inProgress = true;
         this.errors     = undefined;
-        let res         = await this.api.Auth.register(
-            this.values.email,
-            this.values.username,
-            this.values.password
-        )
+        return this.api.Auth
+            .register(
+                this.values.email,
+                this.values.password,
+                this.values.name
+            )
+            .then((user) => runInAction(() => {
+                this.inProgress = false;
+                log('register res action', { user, store: this })
+            }))
+            .catch((err: AxiosError) => {
+                runInAction(() => {
+                    this.inProgress = false;
+                    this.errors     = err.response.data.errors
+                })
+                log('register catch', { err, store: this })
+                return reject(err);
+            })
     }
 
     @action

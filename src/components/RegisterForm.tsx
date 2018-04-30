@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component, FormEvent } from 'react';
 import { observer } from 'mobx-react';
 import { CSSModules, form, Hot } from 'decorators';
 import { classes, style, types } from 'typestyle'
 import styles from 'styles/styles.module.scss'
-import { Button, Form, Icon, Input, Tooltip } from 'antd';
+import { Button, Form, Icon, Input, message, Tooltip } from 'antd';
 import { FormComponentProps } from 'antd/lib/form/Form';
 import { inject, Symbols } from '#/ioc';
-import { AuthStore } from '#/stores';
+import { AuthStore, RouterStore } from '#/stores';
+import config from '../config';
 
 
 const log = require('debug')('components:RegisterForm')
@@ -30,6 +31,7 @@ export interface RegisterFormProps {
 
 export default class RegisterForm extends Component<RegisterFormProps & CSSModules.InjectedCSSModuleProps & Partial<FormComponentProps>> {
     @inject(Symbols.AuthStore) authStore: AuthStore
+    @inject(Symbols.RouterStore) routerStore: RouterStore
 
     static displayName: string             = 'RegisterForm'
     static defaultProps: RegisterFormProps = {
@@ -41,14 +43,27 @@ export default class RegisterForm extends Component<RegisterFormProps & CSSModul
         autoCompleteResult: []
     };
 
-    handleSubmit           = (e) => {
+    handleSubmit           = (e:FormEvent<any>) => {
         log('handleSubmit', { e })
+        e.preventDefault();
         const form = this.props.form;
+
 
         this.authStore.setEmail(form.getFieldValue('email'))
         this.authStore.setPassword(form.getFieldValue('password'))
-        this.authStore.setUsername(form.getFieldValue('username'))
+        this.authStore.setName(form.getFieldValue('name'))
         this.authStore.register()
+            .then(() => {
+                close();
+                message.success('Registered', 1, () => {
+                    this.routerStore.navigate('user.login')
+                })
+            })
+            .catch((err) => {
+                close();
+                let msg = Object.keys(this.authStore.errors).map(key => this.authStore.errors[key].map((error,numError) => <li key={key + numError}>{error}</li>));
+                message.error(<ul className={this.props.styles['register-form-message-error-list']}>{msg}</ul>, 3)
+            })
     }
     handleConfirmBlur      = (e) => {
         const value = e.target.value;
@@ -69,7 +84,7 @@ export default class RegisterForm extends Component<RegisterFormProps & CSSModul
 
         const form = this.props.form;
         if ( value && this.state.confirmDirty ) {
-            form.validateFields([ 'confirm' ], { force: true } as any);
+            form.validateFields([ 'password_confirmation' ], { force: true } as any);
         }
         callback();
     }
@@ -94,13 +109,13 @@ export default class RegisterForm extends Component<RegisterFormProps & CSSModul
             <Form onSubmit={this.handleSubmit} className={this.getClassName()} layout={layout} >
                 <Form.Item
                     {...formItemLayout}
-                    label="E-mail"
+                    label="Email"
                 >
                     {getFieldDecorator('email', {
                         rules: [ {
-                            type: 'email', message: 'The input is not valid E-mail!'
+                            type: 'email', message: 'The input is not valid Email!'
                         }, {
-                            required: true, message: 'Please input your E-mail!'
+                            required: true, message: 'Please input your Email!'
                         } ]
                     })(
                         <Input/>
@@ -124,7 +139,7 @@ export default class RegisterForm extends Component<RegisterFormProps & CSSModul
                     {...formItemLayout}
                     label="Confirm Password"
                 >
-                    {getFieldDecorator('confirm', {
+                    {getFieldDecorator('password_confirmation', {
                         rules: [ {
                             required: true, message: 'Please confirm your password!'
                         }, {
@@ -138,21 +153,25 @@ export default class RegisterForm extends Component<RegisterFormProps & CSSModul
                     {...formItemLayout}
                     label={(
                         <span>
-                            Nickname&nbsp;
+                            Name&nbsp;
                             <Tooltip title="What do you want others to call you?">
                                 <Icon type="question-circle-o"/>
                             </Tooltip>
                         </span>
                     )}
                 >
-                    {getFieldDecorator('nickname', {
-                        rules: [ { required: true, message: 'Please input your nickname!', whitespace: true } ]
+                    {getFieldDecorator('name', {
+                        rules: [ { required: true, message: 'Please input your name!', whitespace: true } ]
                     })(
                         <Input/>
                     )}
                 </Form.Item>
                 <Form.Item>
-                    <Button type="primary">Submit</Button>
+                    <Button
+                        type="primary"
+                        htmlType="submit"
+                        disabled={this.authStore.inProgress}
+                    >Submit</Button>
                 </Form.Item>
             </Form>
         )

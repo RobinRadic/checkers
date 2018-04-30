@@ -62,7 +62,7 @@ export default class LoginForm extends Component<RegisterFormProps & CSSModules.
             })
             .catch((err) => {
                 close();
-                message.error(err.toString(), 3000)
+                message.error(this.authStore.errors, 3)
             })
     }
 

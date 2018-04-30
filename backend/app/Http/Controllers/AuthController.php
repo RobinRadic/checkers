@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use Hash;
+use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Validator;
 
 class AuthController extends Controller
 {
+    use RegistersUsers;
+
     /**
      * Create a new AuthController instance.
      *
@@ -14,7 +20,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', [ 'except' => [ 'login', 'register' ] ]);
     }
 
     /**
@@ -24,13 +30,59 @@ class AuthController extends Controller
      */
     public function login()
     {
-        $credentials = request(['email', 'password']);
+        $credentials = request([ 'email', 'password' ]);
 
-        if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], Response::HTTP_UNAUTHORIZED);
+        if ( ! $token = auth()->attempt($credentials)) {
+            return response()->json([ 'error' => 'Invalid login credentials' ], Response::HTTP_UNAUTHORIZED);
         }
 
         return $this->respondWithToken($token);
+    }
+
+
+    /**
+     * The user has been registered.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  mixed                    $user
+     *
+     * @return mixed
+     */
+    protected function registered(Request $request, $user)
+    {
+        return response()->json([ 'message' => 'Successfully registered' ]);
+    }
+
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array $data
+     *
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+    }
+
+    /**
+     * Create a new user instance after a valid registration.
+     *
+     * @param  array $data
+     *
+     * @return \App\User
+     */
+    protected function create(array $data)
+    {
+        return User::create([
+            'name'     => $data[ 'name' ],
+            'email'    => $data[ 'email' ],
+            'password' => Hash::make($data[ 'password' ]),
+        ]);
     }
 
     /**
@@ -52,7 +104,7 @@ class AuthController extends Controller
     {
         auth()->logout();
 
-        return response()->json(['message' => 'Successfully logged out']);
+        return response()->json([ 'message' => 'Successfully logged out' ]);
     }
 
     /**
@@ -76,8 +128,8 @@ class AuthController extends Controller
     {
         return response()->json([
             'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->guard('api')->factory()->getTTL() * 60
+            'token_type'   => 'bearer',
+            'expires_in'   => auth()->guard('api')->factory()->getTTL() * 60,
         ]);
     }
 }

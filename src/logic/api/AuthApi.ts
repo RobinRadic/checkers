@@ -18,8 +18,8 @@ export class AuthApi {
         return this.api.post('/auth/login', { email, password }).then(responseData)
     }
 
-    public register(email: string, username: string, password: string) {
-        return this.api.post('/users', { email, username, password })
+    public register(email: string, password: string, name: string) {
+        return this.api.post('/auth/register', { email, password, password_confirmation:password, name }).then(responseData)
     }
 
     public logout() {
