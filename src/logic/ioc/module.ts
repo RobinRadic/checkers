@@ -1,5 +1,5 @@
 import { ContainerModule } from 'inversify';
-import { AuthStore, BreakpointStore, GameStore, RoomStore, RootStore, RouterStore } from '#/stores';
+import { AuthStore, BreakpointStore, GameStore, RoomStore, RootStore, RouterStore, UserStore } from '#/stores';
 import { container, Symbols } from './';
 import { routes } from 'routes';
 import Echo from 'laravel-echo';
@@ -23,6 +23,7 @@ export const containerModule = new ContainerModule(((bind, unbind, isBound, rebi
         bind(Symbols.BreakpointStore).to(BreakpointStore).inSingletonScope(),
         bind(Symbols.RouterStore).to(RouterStore).inSingletonScope(),
         bind(Symbols.GameStore).to(GameStore).inSingletonScope(),
+        bind(Symbols.UserStore).to(UserStore).inSingletonScope(),
         bind(Symbols.RoomStore).to(RoomStore).inSingletonScope()
     ];
 

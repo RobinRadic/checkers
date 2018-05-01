@@ -111,6 +111,7 @@
         "typestyle": "^1.7.2"
     },
     "devDependencies": {
+        "@google-cloud/compute": "^0.10.0",
         "@radic/build-tools": "^0.5.0",
         "@radic/console-colors": "^2.0.4",
         "@storybook/addon-actions": "^4.0.0-alpha.1",

@@ -36,8 +36,10 @@ class Player extends Model
         'id',
         'room_id',
 
+        'name',
+
         'room',
-        'messages',
+        'messages'
     ];
 
     protected $casts = [
@@ -45,6 +47,11 @@ class Player extends Model
         'room_id' => 'integer',
         'user_id' => 'integer',
     ];
+
+    protected $appends = [
+        'name'
+    ];
+
 
     public function room()
     {
@@ -59,6 +66,16 @@ class Player extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * getIsFullAttribute method
+     *
+     * @return bool
+     */
+    public function getNameAttribute()
+    {
+        return $this->attributes[ 'name' ] = $this->user->name;
     }
 
     public function inRoom()

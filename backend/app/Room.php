@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -28,6 +29,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Player $whitePlayer
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Room whereBlackPlayerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Room whereWhitePlayerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Room withLatestMessages()
  */
 class Room extends Model
 {
@@ -87,5 +89,21 @@ class Room extends Model
     public function getIsFullAttribute()
     {
         return $this->attributes[ 'is_full' ] = $this->players->count() > 1;
+    }
+
+    /**
+     * scopeWithLatestMessages method
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
+     * @return void
+     */
+    public function scopeWithLatestMessages(Builder $query, $limit = 10)
+    {
+        $query
+            ->with('messages', 'messages.player')
+            ->getRelation('messages')->limit($limit);
+        return $query;
+
     }
 }

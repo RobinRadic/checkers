@@ -1,7 +1,8 @@
 import { injectable } from 'inversify';
 import { action, observable, runInAction } from 'mobx';
 import { container, inject, Symbols } from '#/ioc';
-import { Api } from '#/api';
+import { Api, RoomData } from '#/api';
+
 const Echo = require('laravel-echo');
 
 
@@ -12,9 +13,21 @@ export class RoomStore {
 
     @inject(Symbols.Api) api: Api;
 
-    @observable room                = undefined;
-    @observable inProgress: boolean = false;
-    @observable errors              = undefined;
+    @observable room: RoomData         = undefined;
+    @observable rooms: Array<RoomData> = [];
+    @observable inProgress: boolean    = false;
+    @observable errors                 = undefined;
+
+    @action fetchRooms() {
+        this.inProgress = true;
+
+        return this.api.Room
+            .all()
+            .then((rooms) => runInAction(() => {
+                this.rooms      = rooms;
+                this.inProgress = false;
+            }))
+    }
 
     @action createRoom(name: string) {
         this.inProgress = true;
@@ -26,10 +39,10 @@ export class RoomStore {
             }))
     }
 
-    @action joinRoom(name: string) {
+    @action joinRoom(id: number) {
         this.inProgress = true;
         return this.api.withAuth().Room
-            .join(name)
+            .join(id)
             .then((room) => runInAction(() => {
                 this.room       = room;
                 this.inProgress = false;

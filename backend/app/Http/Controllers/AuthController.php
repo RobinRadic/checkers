@@ -7,6 +7,7 @@ use Hash;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Tymon\JWTAuth\JWTGuard;
 use Validator;
 
 class AuthController extends Controller
@@ -92,7 +93,7 @@ class AuthController extends Controller
      */
     public function me()
     {
-        $user = User::whereKey(auth()->id())->with(['player'])->get()->toArray();
+        $user = User::whereKey(auth()->id())->with([ 'player' ])->get()->first()->toArray();
         return response()->json($user);
     }
 
@@ -131,6 +132,7 @@ class AuthController extends Controller
             'access_token' => $token,
             'token_type'   => 'bearer',
             'expires_in'   => auth()->guard('api')->factory()->getTTL() * 60,
+            'timestamp'    => time(),
         ]);
     }
 }

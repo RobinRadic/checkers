@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Events\RoomCreated;
 use App\Room;
+use App\User;
 use Illuminate\Console\Command;
 
 class TestCommand extends Command
@@ -38,8 +39,21 @@ class TestCommand extends Command
      * @return mixed
      */
     public function handle(){
-        $room = Room::get()->first();
-        broadcast(new RoomCreated($room));
+        $user     = User::get()->first();
+        $player   = $user->player;
+        $room     = $player->room()->getRelation();
+        $room->messages()->getRelation('messages')->limit(10);
+        $messages = $room->messages;
+        $room = Room::whereName('my room')
+            ->withLatestMessages()
+            ->get()
+            ->first();
+        /** @var \Illuminate\Database\Eloquent\Collection $messages */
+//        $messages = $room->messages->take(10);
+//        $messages->load(['player']);
+//        $room->setRelation('messages', $room->messages->take(10)->load('player'));
+        $data = $room->toArray();
+        $a = 'a';
     }
 
     public function handle2()

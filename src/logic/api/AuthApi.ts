@@ -25,4 +25,7 @@ export class AuthApi {
     public logout() {
         return this.api.withAuth().post('/auth/logout');
     }
+    public refresh() {
+        return this.api.withAuth().post('/auth/refresh');
+    }
 }

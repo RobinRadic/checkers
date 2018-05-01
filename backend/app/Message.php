@@ -46,7 +46,6 @@ class Message extends Model
     {
         return $this->belongsTo(Player::class);
     }
-
     public function room()
     {
         return $this->hasOne(Room::class);

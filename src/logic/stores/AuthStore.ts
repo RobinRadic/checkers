@@ -1,10 +1,11 @@
 import { injectable } from 'inversify';
 import { action, computed, observable, reaction, runInAction } from 'mobx';
-import { Api } from '#/api';
+import { Api, AuthLoginData } from '#/api';
 import { container, Symbols } from '#/ioc';
 import { AxiosError } from 'axios';
 import { reject, resolve } from '../../utils/promise';
 import { UserStore } from '#/stores';
+import { LocalStorage } from 'utils/storage';
 
 const log = require('debug')('logic:stores:auth')
 
@@ -14,23 +15,60 @@ export class AuthStore {
 
     get user(): UserStore {return container.get<UserStore>(Symbols.UserStore) }
 
-    @computed get loggedIn(): boolean { return this.token !== undefined && this.token !== null};
+    @observable inProgress          = false;
+    @observable errors              = undefined;
+    @observable auth: AuthLoginData = LocalStorage.get.item('auth');
 
-    @observable inProgress = false;
-    @observable errors     = undefined;
-    @observable token      = window.localStorage.getItem('jwt');
+    @computed get loggedIn(): boolean { return this.auth !== undefined && this.auth !== null};
+
+    @computed get expired(): boolean {
+        log('expired')
+
+        if ( ! this.loggedIn ) {
+            return false
+        }
+        let now       = Date.now() / 1000;
+        let expiresIn = this.auth.expires_in;
+        let elapsed   = now - this.auth.timestamp
+        log('expired2', elapsed > expiresIn)
+
+        return elapsed > expiresIn;
+    }
+
+    @action refreshIfExpired() {
+        if ( this.expired ) {
+            log('refreshIfExpired')
+            return this.api.Auth.refresh()
+        }
+        return resolve()
+    }
+
 
     constructor() {
         reaction(
-            () => this.token,
-            token => {
-                if ( token ) {
-                    window.localStorage.setItem('jwt', token);
+            () => this.auth,
+            data => {
+                if ( data ) {
+                    LocalStorage.set('auth', data);
+                    return this.user.pullUser();
                 } else {
-                    window.localStorage.removeItem('jwt');
+                    LocalStorage.remove('auth');
                 }
             }
         );
+        reaction(
+            () => this.expired,
+            expired => {
+                log('reaction expired', expired)
+                if ( expired ) {
+                    this.setAuth(null);
+                    // this.refreshIfExpired();
+                }
+            },
+            {
+                fireImmediately: true
+            }
+        )
     }
 
     @observable values = {
@@ -65,12 +103,11 @@ export class AuthStore {
                 this.values.email,
                 this.values.password
             )
-            .then((user) => {
+            .then((auth) => {
                 runInAction(() => {
                     this.inProgress = false;
-                    this.token      = user.access_token;
-
-                    log('login res action', { user, store: this })
+                    this.auth       = auth;
+                    log('login res action', { user: auth, store: this })
                 })
                 return this.user.pullUser();
             })
@@ -107,17 +144,16 @@ export class AuthStore {
             })
     }
 
-    @action
-    logout() {
+    @action logout() {
         return this.api.Auth
             .logout()
             .then(() => {
-                this.setToken(null)
+                this.setAuth(null)
                 return resolve();
             });
     }
 
-    @action setToken(token) {
-        this.token = token;
+    @action setAuth(auth: AuthLoginData) {
+        this.auth = auth;
     }
 }

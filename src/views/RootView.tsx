@@ -75,8 +75,8 @@ export default class RootView extends Component<Props> {
     private renderLoggedInMenu() {
         return (
             <Menu {...menuProps}>
-                <Menu.Item key='game.create'><Link routeName='game.create'>Create</Link></Menu.Item>
-                <Menu.Item key='game.join'><Link routeName='game.join'>Join</Link></Menu.Item>
+                <Menu.Item key='room.create'><Link routeName='room.create'>Create</Link></Menu.Item>
+                <Menu.Item key='room.join'><Link routeName='room.join'>Join</Link></Menu.Item>
                 <Menu.Item key='user.logout'><Link routeName='user.logout'>Logout</Link></Menu.Item>
             </Menu>
         )

@@ -27,13 +27,18 @@ Route::group([ 'prefix' => 'auth' ], function ($router) {
 });
 
 
-Route::group([ 'prefix' => 'room', 'middleware' => ['auth:api'] ], function ($router) {
 
-    Route::get('/', 'RoomController@get');
-    Route::post('create', 'RoomController@create');
-    Route::post('join', 'RoomController@join');
-    Route::post('leave', 'RoomController@leave');
-    Route::get('messages', 'RoomController@fetchMessages');
-    Route::post('message', 'RoomController@sendMessage');
+Route::group([ 'prefix' => 'room', 'middleware' => [ 'auth:api' ] ], function ($router) {
+
+    Route::get('/', 'RoomController@getIndex');
+    Route::post('/', 'RoomController@postCreate');
+
+    // first matching route will be used
+    Route::post('leave', 'RoomController@postLeave');
+    Route::get('message', 'RoomController@getMessages');
+    Route::post('message', 'RoomController@postMessage');
+
+    Route::get('{id}', 'RoomController@get');
+    Route::post('{id}/join', 'RoomController@postJoin');
 
 });

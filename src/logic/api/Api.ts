@@ -26,12 +26,15 @@ export class Api {
     protected authInterceptorResponseId: number
 
     withAuth(): this {
-        this.client.defaults.headers.Authorization = 'Bearer ' + this.authStore.token
+        if(!this.authStore.loggedIn){
+            return this;
+        }
+        this.client.defaults.headers.Authorization = 'Bearer ' + this.authStore.auth.access_token
         if ( this.authInterceptorResponseId === undefined ) {
             // this.authInterceptorRequestId = this.client.interceptors.request.use(
             //     (config) => {
-            //         if ( this.authStore.token ) {
-            //             config.headers.Authorization = 'Bearer ' + this.authStore.token
+            //         if ( this.authStore.loggedIn ) {
+            //             config.headers.Authorization = 'Bearer ' + this.authStore.auth.access_token
             //         }
             //         return config
             //     }

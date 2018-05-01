@@ -16,6 +16,7 @@ import { container, containerModule, Symbols } from '#/ioc';
 import { makeRouter } from '#/router';
 import App from '../../App';
 import { PSEvents } from '../../PSEvents';
+import { AuthStore, RootStore } from '#/stores';
 
 
 const log = require('debug')('_new')
@@ -46,7 +47,11 @@ const render = (Component) => {
 
 container.load(containerModule)
 
-const router = makeRouter(container.get(Symbols.routes), container.get(Symbols.RouterStore))
+const router = makeRouter(container.get(Symbols.routes), container.get(Symbols.RouterStore), {
+    dependencies: () => [ { name: 'store', dependency: container.get<RootStore>(Symbols.RootStore) } ]
+})
+
+container.get<AuthStore>(Symbols.AuthStore).refreshIfExpired();
 
 router.start(() => {
     render(App);
